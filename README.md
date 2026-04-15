@@ -27,7 +27,7 @@
 
   Each row represents an index discharge; features are aggregated from the pre-defined time windows. Sources include the hospital data warehouse, pharmacy/claims feeds, and public SDOH datasets. Key early tasks are patient-linkage, defining the index cohort, and resolving different coding systems (ICD versions, medication codes).
 
-- **The insight that is useful for decision-making:**
+- ## The insight that is useful for decision-making:**
   - A ranked list of patients with calibrated risk scores (to decide who receives a case-manager visit).
   - Driver-level explanations and cohort summaries: which risk factors (e.g., recent prior admissions, specific lab abnormalities, medication gaps, lack of scheduled follow-up) are most responsible for elevated risk in the high-risk cohort. These suggest targeted interventions (medication reconciliation, scheduling outpatient follow-up, home health referrals).
   - A capacity-aware threshold: the risk cutoff chosen to match available case-manager capacity, plus an estimate of expected readmissions avoided and cost trade-offs.
