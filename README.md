@@ -1,39 +1,51 @@
-# MediPredict — Part A: README Documentation (PR Submission)
+# MediPredict — Project Overview and Part A Documentation
 
-## Part A: README Documentation
+## 1) Project Intent & High-Level Flow
 
-### 1) Explaining the Lifecycle — Question → Data → Insight
+- **Problem / question:** The repository aims to support data-driven decisions about post-discharge patient care by identifying which discharges are most likely to experience an unplanned 30‑day readmission and therefore would benefit from targeted interventions. The practical goal is to convert clinical and administrative records into operationally useful risk signals that clinicians or care managers can act on.
 
-- **Start with a clear question:** A good question is a specific decision we want to make, stated in terms of population, action, and timeframe. For example: "Which discharged patients should receive a targeted care-management visit to prevent a 30-day readmission?" Starting with a clear question focuses the whole project: it determines what counts as a positive case (the label), what features matter, and which evaluation metrics map to the decision (e.g., recall vs. precision depending on intervention cost). Without a clear question you risk building models that measure the wrong thing, collecting irrelevant data, or producing insights that can't be acted on.
+- **High-level workflow followed here:**
+  1. Problem framing — define the decision, the target population, and the action (who receives intervention).
 
-- **Data as evidence — inspect it before analysis:** Data are measurements collected under practical constraints; they are not perfect truth. Understanding data means verifying provenance (where the records came from), schema (what each field actually records), time alignment (when events happened relative to the question), and quality (missing values, duplicates, inconsistent codes). Early exploration—sampling records, plotting distributions, checking missingness and time spans—turns raw tables into usable evidence and prevents errors like label leakage, mis-specified cohorts, or hidden biases.
+2.  Data assembly & validation — gather admissions, prior utilization, medications, labs, and contextual data; validate provenance, timestamps, and linkage keys.
+3.  Exploratory analysis — characterize cohorts, inspect distributions and missingness, and surface candidate predictors and failure modes.
+4.  Modeling & evaluation — build predictive models, select thresholds aligned with capacity, and evaluate calibration and subgroup performance.
+5.  Operationalization & monitoring — package scores, create tooling for prioritization, and monitor model performance and outcomes post-deployment.
 
-- **Insights emerge from exploration, not from tools alone:** Tools (models, libraries, dashboards) are helpful, but insight requires thoughtful probing: segmenting the population, visualizing relationships, comparing subgroups, and validating patterns with domain knowledge. Real insight connects patterns in the data back to the original question and to decisions people can take. For instance, a model score is not an insight by itself; discovering that high readmission risk is concentrated among patients with recent medication changes and poor outpatient follow-up is an insight that suggests specific interventions.
+- **How the repository structure reflects stages of the lifecycle:** The repository separates exploratory artifacts (iterative notebooks, ad‑hoc plots) from reproducible steps (data processing scripts, model training code) and from delivery artifacts (saved model artifacts, reports). That separation supports an iterative flow: exploration informs pipeline design, which is then hardened into scripts and evaluated against the initial question.
 
-- **How the steps connect:** The question defines the label, the relevant features, and the evaluation criteria. Understanding the data reveals whether you can answer that question with the available evidence and whether adjustments (more data, different cohort, re-defined time windows) are needed. Exploration converts data into understanding and surfaces the actionable patterns that answer the question. That understanding can refine the question, making the process iterative rather than linear.
+## 2) Repository Structure & File Roles
 
-### 2) Applying the Lifecycle to a Project Context — Example: 30-day Readmission Risk
+- **Major folders and the type of work they contain:**
+  - `data/` — stores raw and (when present) processed datasets; this is where evidence enters the project and must be handled with care (access controls, provenance notes).
+  - `notebooks/` — exploratory analyses, visualization, and hypothesis testing. Notebooks are the workspace for discovery and quick iteration.
+  - `scripts/` or `src/` — reproducible data-processing and modeling pipelines; scripts should be idempotent, parameterized, and suitable for automation.
+  - `models/` — serialized model artifacts, training metadata, and version notes for reproducibility.
+  - `outputs/` or `reports/` — human-facing artifacts: charts, CSV exports, and evaluation reports used to communicate findings and decisions.
+  - `docs/` — design notes, evaluation criteria, and operational guidance (if present).
 
-- **The question:** "Which patients discharged from the hospital are at highest risk of unplanned readmission within 30 days, such that assigning a post-discharge case manager would likely reduce that risk?" The operational decision: allocate a limited number of case-manager visits each week to the highest-value patients.
+- **How exploratory work differs from finalized analysis:** Exploratory work (in `notebooks/`) is iterative, partially documented, and optimized for learning: rapid plots, temporary joins, and ad‑hoc slicing. Finalized analysis appears in `scripts/` or `src/` as repeatable, parameterized code with clear inputs/outputs, and accompanied by tests or checks. Finalized work should reproduce notebook findings with deterministic steps and explicit data contracts.
 
-- **The data needed (what and where it might come from):**
-  - Index hospital admissions table (admission/discharge timestamps, service, discharge disposition) from the hospital EHR.
-  - Demographics and comorbidities (age, sex, chronic conditions) from the EHR problem list and past encounters.
-  - In-hospital measurements and labs during the index admission (last values, trends).
-  - Medication lists at discharge and prior pharmacy fill records (if available).
-  - Prior utilization: emergency department visits and admissions in the last 6–12 months from claims or EHR history.
-  - Social determinants proxies (ZIP-code level socioeconomic data or documented social needs) from administrative data or external datasets.
-  - Outcome label: a readmission event within 30 days after discharge (derived by linking admissions by patient identifier).
+- **Where a new contributor should be cautious:**
+  - Modifying raw data files or overwriting files in `data/` without versioning or provenance notes can corrupt experiments.
+  - Changing production pipeline scripts or model weights without tests and a rollback plan — these are operational risks.
+  - Committing sensitive PHI/PII into the repository; any patient‑level data must remain external and access‑controlled.
 
-  Each row represents an index discharge; features are aggregated from the pre-defined time windows. Sources include the hospital data warehouse, pharmacy/claims feeds, and public SDOH datasets. Key early tasks are patient-linkage, defining the index cohort, and resolving different coding systems (ICD versions, medication codes).
+## 3) Assumptions, Gaps, and Open Questions
 
-- **The insight that is useful for decision-making:**
-  - A ranked list of patients with calibrated risk scores (to decide who receives a case-manager visit).
-  - Driver-level explanations and cohort summaries: which risk factors (e.g., recent prior admissions, specific lab abnormalities, medication gaps, lack of scheduled follow-up) are most responsible for elevated risk in the high-risk cohort. These suggest targeted interventions (medication reconciliation, scheduling outpatient follow-up, home health referrals).
-  - A capacity-aware threshold: the risk cutoff chosen to match available case-manager capacity, plus an estimate of expected readmissions avoided and cost trade-offs.
+- **Assumptions apparent in the repo:**
+  - The data contain reliable patient identifiers to link admissions and outcomes across sources.
+  - Timestamp quality is sufficient to define index discharges and outcomes without leakage (events labeled correctly relative to prediction time).
+  - The historical cohort is representative of future operational conditions (no major policy or population shifts).
 
-- **Why this follows the lifecycle:** the question sets the label and action; the data chosen must contain evidence that maps to the question (timing, measurements that reflect clinical state and social risk); and exploration (cohort checks, subgroup analyses, feature importance, and calibration testing) produces the concrete, actionable insights needed to deploy the intervention responsibly.
+- **Missing documentation or unclear steps:**
+  - A clear data dictionary and small sample dataset are not present; contributors must infer column semantics from code and notebooks.
+  - Reproducible run instructions (how to execute the full pipeline end-to-end) and environment setup (dependencies, Python version) are incomplete or missing.
+  - Evaluation acceptance criteria (what minimum calibration, recall, or fairness thresholds are required before deployment) are not specified.
+
+- **One practical improvement to make the repository easier to understand or extend:**
+  Add a single `DESIGN.md` that contains: a) an explicit decision statement and operational objective, b) a concise data dictionary (example rows and field meanings), c) a minimal runbook to reproduce the pipeline (`scripts/run_pipeline.sh` or `make` target), and d) evaluation acceptance thresholds. This file bridges exploratory notebooks and production scripts, reduces onboarding friction, and clarifies assumptions for reviewers.
 
 ---
 
-If you'd like, I can: 1) add a short dataset sketch and column examples for this project, 2) create a separate DESIGN.md with evaluation criteria and acceptance thresholds, or 3) open a PR with this README change applied. Which would you prefer next?
+If you'd like, I will: 1) add the suggested `DESIGN.md` draft, 2) create a small sample `data/sample_schema.csv` sketch, or 3) open a PR with this README update. Which should I do next?
