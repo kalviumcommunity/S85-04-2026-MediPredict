@@ -1,13 +1,47 @@
-# MediPredict — Project Overview and Part A Documentation
+# MediPredict
 
-## 1) Project Intent & High-Level Flow
+A data-driven healthcare forecasting system for small hospitals to predict resource needs like beds, oxygen, and ICU capacity.
 
-- **Problem / question:** The repository aims to support data-driven decisions about post-discharge patient care by identifying which discharges are most likely to experience an unplanned 30‑day readmission and therefore would benefit from targeted interventions. The practical goal is to convert clinical and administrative records into operationally useful risk signals that clinicians or care managers can act on.
+## Project Structure
 
-- **High-level workflow followed here:**
-  1. Problem framing — define the decision, the target population, and the action (who receives intervention).
+- `data/`: Sample dataset (CSV)
+- `backend/`: Node.js + Express API with MongoDB
+- `frontend/`: React dashboard
 
-2.  Data assembly & validation — gather admissions, prior utilization, medications, labs, and contextual data; validate provenance, timestamps, and linkage keys.
+## Setup
+
+### Backend
+1. Install MongoDB locally or use cloud (e.g., MongoDB Atlas).
+2. Update `backend/.env` with your MONGO_URI.
+3. Run `cd backend && npm install && npm start`
+
+### Frontend
+1. Run `cd frontend && npm install && npm start`
+
+## APIs
+- POST /api/data: Store data
+- GET /api/data: Fetch data
+- GET /api/predict: Get 7-day predictions
+
+## Deployment
+
+### Backend (Render)
+1. Push backend to GitHub.
+2. Sign up for Render, create a new Web Service.
+3. Connect GitHub repo, set build command: `npm install`, start: `node server.js`.
+4. Add environment variables (MONGO_URI).
+5. Deploy.
+
+### Frontend (Vercel)
+1. Push frontend to GitHub.
+2. Sign up for Vercel, import project.
+3. Set build settings: build command `npm run build`, output dir `build`.
+4. Deploy. Update API calls to production URL.
+
+## Features
+- Data upload form
+- Charts for trends and predictions
+- Alerts for high demand
 3.  Exploratory analysis — characterize cohorts, inspect distributions and missingness, and surface candidate predictors and failure modes.
 4.  Modeling & evaluation — build predictive models, select thresholds aligned with capacity, and evaluate calibration and subgroup performance.
 5.  Operationalization & monitoring — package scores, create tooling for prioritization, and monitor model performance and outcomes post-deployment.
