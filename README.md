@@ -82,4 +82,128 @@ A data-driven healthcare forecasting system for small hospitals to predict resou
 
 ---
 
+## Python & Anaconda Setup Documentation
+
+### System Information
+- **Operating System**: Windows 11
+- **Python Version**: 3.12.4 (pre-installed)
+- **Anaconda Version**: Miniconda3 with conda 26.1.1
+- **Setup Date**: April 17, 2026
+
+### Installation Steps
+
+#### 1. Python Verification
+Python was already installed on the system. Verified installation:
+```bash
+python --version
+# Output: Python 3.12.4
+```
+
+#### 2. Anaconda Installation
+Since full Anaconda download links were not accessible, Miniconda was installed instead:
+
+1. Downloaded Miniconda installer:
+```bash
+curl -o miniconda-installer.exe https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+```
+
+2. Ran the installer:
+```bash
+Start-Process -FilePath "C:\Users\Dell\Downloads\miniconda-installer.exe" -Wait
+```
+
+3. Verified installation location: `C:\Users\Dell\Miniconda3`
+
+#### 3. Conda Configuration
+1. Accepted Terms of Service for all channels:
+```bash
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/msys2
+```
+
+2. Initialized conda for PowerShell:
+```bash
+conda init powershell
+```
+
+3. Added conda to PATH for current session:
+```bash
+$env:PATH += ";C:\Users\Dell\Miniconda3\Scripts;C:\Users\Dell\Miniconda3\condabin"
+```
+
+4. Verified conda installation:
+```bash
+conda --version
+# Output: conda 26.1.1
+```
+
+#### 4. Data Science Environment Setup
+Created dedicated conda environment for Data Science work:
+
+1. Created environment:
+```bash
+conda create -n datascience python=3.12 -y
+```
+
+2. Activated environment:
+```bash
+& "C:\Users\Dell\Miniconda3\Scripts\activate.bat" datascience
+```
+
+3. Installed essential data science packages:
+```bash
+pip install numpy pandas matplotlib seaborn jupyter
+```
+
+#### 5. Environment Validation
+Tested the installation by importing key packages:
+```python
+python -c "import numpy as np; import pandas as pd; import matplotlib.pyplot as plt; print('All data science packages imported successfully!')"
+# Output: All data science packages imported successfully!
+```
+
+### Environment Details
+- **Environment Name**: datascience
+- **Python Version**: 3.12.13
+- **Key Packages Installed**:
+  - numpy 2.4.4
+  - pandas 3.0.2
+  - matplotlib 3.10.8
+  - seaborn 0.13.2
+  - jupyter 1.1.1
+
+### Usage Instructions
+To use the Data Science environment:
+
+1. Open PowerShell
+2. Activate the environment:
+```bash
+conda activate datascience
+```
+3. Start Jupyter Notebook:
+```bash
+jupyter notebook
+```
+
+### Verification Commands
+For future verification, use these commands:
+```bash
+# Check Python version
+python --version
+
+# Check conda version
+conda --version
+
+# List environments
+conda env list
+
+# Check installed packages
+pip list
+```
+
+This setup provides a complete Data Science development environment ready for the MediPredict project and future data analysis tasks.
+
+---
+
 If you'd like, I will: 1) add the suggested `DESIGN.md` draft, 2) create a small sample `data/sample_schema.csv` sketch, or 3) open a PR with this README update. Which should I do next?
