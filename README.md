@@ -325,4 +325,158 @@ python -c "import numpy, pandas, matplotlib; print('All packages OK')"
 
 ---
 
+## Jupyter Notebook Navigation & Interface Guide
+
+### Navigation Mastery ✅ COMPLETED
+**Completion Date**: April 22, 2026  
+**Environment**: datascience conda environment  
+**Working Directory**: `C:\Users\Dell\Desktop\Medipredict`
+
+### 1. Launching Jupyter Notebook ✅
+
+#### Correct Launch Procedure:
+```bash
+# Activate the correct environment
+conda activate datascience
+
+# Navigate to project directory
+cd C:\Users\Dell\Desktop\Medipredict
+
+# Launch Jupyter Notebook
+jupyter notebook
+```
+
+#### Launch Verification:
+- ✅ Environment: datascience conda environment active
+- ✅ Directory: `C:\Users\Dell\Desktop\Medipredict` (project root)
+- ✅ Browser: Jupyter opens at `http://localhost:8888`
+- ✅ Server: Running with correct kernel configuration
+
+### 2. Jupyter Home Interface Components ✅
+
+#### Key Interface Areas Identified:
+1. **📁 File Browser**: Lists files and folders in current directory
+2. **🧭 Navigation Breadcrumbs**: Shows current path and allows navigation
+3. **➕ New Button**: Dropdown menu for creating new files/notebooks
+4. **📤 Upload Button**: For uploading files to current directory
+5. **🔄 Refresh Button**: Reload the file browser
+6. **🏃 Running Tab**: Shows active kernels and sessions
+7. **🔍 Search Bar**: Filter files and folders
+
+#### File Type Indicators:
+- 📁 **Folder**: Directory
+- 📓 **Notebook**: .ipynb files
+- 📄 **File**: Other file types (.py, .txt, .csv, etc.)
+
+### 3. Navigation Best Practices ✅
+
+#### Safe Navigation Rules:
+1. **Always know your current directory** - Check breadcrumbs
+2. **Navigate intentionally** - Click folders, don't guess paths
+3. **Use Up button** - Navigate to parent directory
+4. **Check file locations** - Verify where notebooks are saved
+5. **Stay within project folder** - Avoid working in system directories
+
+#### Project Structure Navigation:
+```
+Medipredict/                    # Project root (current location)
+├── notebooks/                   # Data analysis notebooks
+├── data/                       # Datasets
+├── scripts/                    # Python scripts
+├── models/                     # Trained models
+└── outputs/                    # Results and visualizations
+```
+
+### 4. Notebook Creation & Management ✅
+
+#### Creation Process:
+1. **New Notebook**: Click "New" → "Python 3"
+2. **Correct Location**: Created in `C:\Users\Dell\Desktop\Medipredict`
+3. **Kernel Verification**: Uses datascience environment Python 3.13.12
+
+#### Created Notebooks:
+- ✅ `jupyter_navigation_guide.ipynb` - Comprehensive guide
+- ✅ `notebook_management_demo.ipynb` - Management demo
+- ✅ `test_verification.ipynb` - Environment verification
+
+### 5. File Management Operations ✅
+
+#### Essential Operations Mastered:
+1. **Create**: New → Python 3
+2. **Rename**: Click notebook title or File → Rename
+3. **Save**: Ctrl+S or floppy disk icon
+4. **Close**: File → Close and Halt
+5. **Reopen**: Click .ipynb file in Jupyter Home
+
+#### Keyboard Shortcuts Verified:
+- **Ctrl+S**: Save notebook ✅
+- **Ctrl+Enter**: Run current cell ✅
+- **Shift+Enter**: Run cell and select below ✅
+- **Alt+Enter**: Run cell and insert below ✅
+- **DD**: Delete current cell (command mode) ✅
+- **A**: Insert cell above (command mode) ✅
+- **B**: Insert cell below (command mode) ✅
+- **M**: Change to markdown (command mode) ✅
+- **Y**: Change to code (command mode) ✅
+
+### 6. Navigation Verification Checklist ✅
+
+#### ✅ Verified Capabilities:
+- [x] **Jupyter Launch**: Started from correct directory and environment
+- [x] **Interface Understanding**: Identified all key components
+- [x] **Directory Navigation**: Confirmed working directory structure
+- [x] **File Operations**: Created and verified multiple notebooks
+- [x] **Notebook Creation**: Successfully created functional notebooks
+- [x] **Kernel Functionality**: Python environment working correctly
+- [x] **File Management**: Demonstrated save, rename, close operations
+
+### 7. Current Environment Status ✅
+
+#### System Information:
+- **Working Directory**: `C:\Users\Dell\Desktop\Medipredict`
+- **Active Environment**: datascience
+- **Python Version**: 3.13.12
+- **Conda Version**: 26.1.1
+- **Jupyter Components**: All core packages functional
+
+#### Access Information:
+- **Jupyter URL**: `http://localhost:8888`
+- **Project Root**: `C:\Users\Dell\Desktop\Medipredict`
+- **Notebook Location**: Project directory (correct)
+
+### 8. Ready for Data Science Work ✅
+
+#### Navigation Confidence Achieved:
+1. **✅ Launch**: Can start Jupyter correctly from terminal
+2. **✅ Navigate**: Confidently move through interface and directories
+3. **✅ Create**: Can create notebooks in correct locations
+4. **✅ Manage**: Can save, rename, and organize notebooks
+5. **✅ Execute**: Can run Python code successfully
+
+#### Next Steps Ready:
+- **Data Analysis**: Ready to create analysis notebooks
+- **Visualization**: Ready to work with matplotlib/seaborn
+- **Modeling**: Ready for machine learning workflows
+- **Deployment**: Ready for Streamlit and other applications
+
+**Navigation Status**: ✅ MASTERED AND READY FOR DATA SCIENCE SPRINT
+
+### Quick Reference Commands
+
+```bash
+# Start Jupyter correctly
+conda activate datascience
+cd C:\Users\Dell\Desktop\Medipredict
+jupyter notebook
+
+# Quick environment check
+conda info --envs
+python --version
+jupyter --version
+```
+
+**You are now fully prepared for Data Science work! 🎉**
+
+---
+
 If you'd like, I will: 1) add the suggested `DESIGN.md` draft, 2) create a small sample `data/sample_schema.csv` sketch, or 3) open a PR with this README update. Which should I do next?
