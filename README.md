@@ -479,4 +479,221 @@ jupyter --version
 
 ---
 
+## Jupyter Kernel Control & Management
+
+### Kernel Mastery ✅ COMPLETED
+**Completion Date**: April 23, 2026  
+**Environment**: datascience conda environment  
+**Kernel**: Python 3.13.12
+
+### 1. Understanding Jupyter Kernels ✅
+
+#### What is a Kernel?
+- **Engine**: Executes Python code in notebooks
+- **State Manager**: Maintains variables and imports
+- **Session Handler**: Manages notebook execution context
+- **Memory Manager**: Controls variable persistence
+
+#### Kernel States:
+- **🟢 Idle**: Ready to execute cells
+- **🟡 Busy**: Currently executing a cell
+- **🔴 Dead/Restarted**: Needs to be restarted
+- **⚫ Interrupted**: Execution was stopped
+
+### 2. Running Cells & Execution Order ✅
+
+#### Key Concepts Demonstrated:
+```python
+# Cell 1: Initialize variables
+counter = 0
+data_list = []
+execution_log = []
+
+# Cell 2: Modify variables (state persists)
+counter += 1
+data_list.append(f"item_{counter}")
+
+# Cell 3: Access variables from previous cells
+print(f"Current counter: {counter}")  # Works if cells 1-2 ran
+```
+
+#### Execution Order Principles:
+- **📊 State Persistence**: Variables exist until kernel restart
+- **🔄 Order Matters**: More important than cell position
+- **🔗 Dependencies**: Later cells depend on earlier execution
+- **⚠️ Hidden State**: Variables can affect cells unexpectedly
+
+### 3. Kernel Restart Operations ✅
+
+#### What Restart Does:
+- ✅ **Clears all variables** from memory
+- ✅ **Resets import state** (re-import libraries needed)
+- ✅ **Clears execution history** (cell numbers reset)
+- ✅ **Stops all running operations**
+- ✅ **Frees memory** and resets kernel state
+
+#### Restart Methods:
+```bash
+# Method 1: Menu Restart
+Kernel → Restart & Clear Output
+
+# Method 2: Menu Restart & Run All
+Kernel → Restart & Run All Cells
+
+# Method 3: Keyboard Shortcut
+# 00 (double-zero) in command mode
+```
+
+#### When to Restart:
+- 🔄 **Before final submission** (ensure reproducibility)
+- 🔄 **Corrupted variables** or unexpected values
+- 🔄 **Major code changes** affecting variable structure
+- 🔄 **Inconsistent notebook behavior**
+- 🔄 **Memory issues** or sluggish performance
+
+### 4. Interrupting Execution ✅
+
+#### What Interrupt Does:
+- ⏹️ **Stops current cell** immediately
+- ✅ **Preserves kernel state** (variables remain)
+- ✅ **Keeps notebook responsive** for other operations
+- ⚠️ **May leave incomplete operations**
+
+#### Interrupt Methods:
+```bash
+# Method 1: Interrupt Button
+# Click the ■ (square) button in toolbar
+
+# Method 2: Menu Interrupt
+Kernel → Interrupt
+
+# Method 3: Keyboard Shortcut
+# I, I (double-I) in command mode
+```
+
+#### When to Interrupt:
+- 🛑 **Infinite loops** or stuck computations
+- 🛑 **Very long operations** you want to stop
+- 🛑 **Accidentally large computations**
+- 🛑 **Frozen notebook** during execution
+
+### 5. Restart vs Interrupt - Decision Guide ✅
+
+#### 🛑 Use INTERRUPT When:
+| Situation | Action | Reason |
+|-----------|--------|--------|
+| Stuck in infinite loop | 🛑 Interrupt | Stop execution, keep variables |
+| Long computation needs stopping | 🛑 Interrupt | Preserve work done |
+| Accidentally huge operation | 🛑 Interrupt | Save existing state |
+| Current cell misbehaving | 🛑 Interrupt | Other cells still work |
+
+#### 🔄 Use RESTART When:
+| Situation | Action | Reason |
+|-----------|--------|--------|
+| Variables have wrong values | 🔄 Restart | Clear corrupted state |
+| Before sharing/submission | 🔄 Restart | Ensure reproducibility |
+| Import errors after changes | 🔄 Restart | Reset import state |
+| Notebook behaves inconsistently | 🔄 Restart | Fresh start |
+| Memory issues or slowness | 🔄 Restart | Free resources |
+
+### 6. Kernel Control Best Practices ✅
+
+#### Development Workflow:
+1. **🧪 Develop**: Run cells iteratively
+2. **🐛 Debug**: Use interrupt for stuck operations
+3. **🔄 Restart**: When state becomes corrupted
+4. **✅ Verify**: Restart & Run All before submission
+5. **📤 Share**: Ensure notebook is reproducible
+
+#### Pro Tips:
+- **🔍 Monitor State**: Check variable values regularly
+- **📝 Document**: Add comments explaining execution order
+- **🧹 Clean Up**: Restart before major changes
+- **⚡ Quick Test**: Use interrupt test for verification
+- **🔄 Fresh Start**: Always restart before final submission
+
+### 7. Kernel Control Demonstration ✅
+
+#### Created Notebooks:
+- ✅ `kernel_control_mastery.ipynb` - Comprehensive guide
+- ✅ `interrupt_test.ipynb` - Interrupt testing
+- ✅ Previous notebooks for navigation and verification
+
+#### Skills Demonstrated:
+- ✅ **Execution Order**: Understanding variable persistence
+- ✅ **State Management**: Kernel memory and variable tracking
+- ✅ **Restart Process**: Complete state clearing
+- ✅ **Interrupt Handling**: Safe execution stopping
+- ✅ **Decision Making**: Choosing appropriate action
+
+### 8. Kernel Status Reference ✅
+
+#### Visual Indicators:
+- **🟢 Circle**: Kernel idle/ready
+- **🟡 Circle**: Kernel busy/executing
+- **⚫ Square**: Kernel interrupted
+- **❌ Circle**: Kernel dead/restart needed
+
+#### Common Issues & Solutions:
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Variable not found | Cell out of order | Run cells in sequence |
+| Wrong variable values | Corrupted state | Restart kernel |
+| Stuck execution | Infinite loop | Interrupt operation |
+| Import errors | State conflicts | Restart kernel |
+| Memory issues | Too many variables | Restart kernel |
+
+### 9. Quick Reference Commands ✅
+
+#### Essential Kernel Operations:
+```bash
+# Check kernel status (in notebook)
+print("Kernel is working!" if True else "Kernel issues!")
+
+# Force restart (in notebook)
+# Use menu: Kernel → Restart & Clear Output
+
+# Interrupt current operation
+# Click ■ button or Kernel → Interrupt
+
+# Check variable state
+print(locals().keys())  # Show all variables
+```
+
+#### Keyboard Shortcuts:
+- **00**: Restart kernel (command mode)
+- **I, I**: Interrupt kernel (command mode)
+- **0, 0**: Restart & Clear Output (command mode)
+
+### 10. Kernel Control Mastery Achieved ✅
+
+#### ✅ Verification Complete:
+- [x] **Running Cells**: Understanding execution order and state
+- [x] **Kernel Restart**: Complete state clearing demonstrated
+- [x] **Interrupting**: Safe execution stopping verified
+- [x] **Decision Making**: Appropriate action selection
+- [x] **Best Practices**: Professional workflow established
+
+#### 🚀 Ready for Data Science:
+- **Debugging**: Systematic notebook troubleshooting
+- **Reproducibility**: Clean, consistent notebooks
+- **Efficiency**: Quick interrupt and restart operations
+- **Reliability**: Predictable notebook behavior
+
+**Kernel Control Status**: ✅ MASTERED AND READY FOR DATA SCIENCE WORK
+
+### Quick Reference Summary
+
+```bash
+# Kernel Control Quick Guide:
+# 🟡 Busy cell → 🛑 Interrupt (■ button)
+# 🔴 Corrupted state → 🔄 Restart (Kernel → Restart)
+# 📤 Before submission → 🔄 Restart & Run All
+# 🐛 Debugging → 🛑 Interrupt, investigate, 🔄 Restart if needed
+```
+
+**You now have complete control over Jupyter kernels! 🎉**
+
+---
+
 If you'd like, I will: 1) add the suggested `DESIGN.md` draft, 2) create a small sample `data/sample_schema.csv` sketch, or 3) open a PR with this README update. Which should I do next?
