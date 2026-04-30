@@ -1298,4 +1298,434 @@ outputs/figures/patient_age_distribution_2024-04-23.png
 
 ---
 
-If you'd like, I will: 1) add the suggested `DESIGN.md` draft, 2) create a small sample `data/sample_schema.csv` sketch, or 3) open a PR with this README update. Which should I do next?
+## Python Collections: Lists, Tuples, and Dictionaries
+
+### Collections Mastery ✅ COMPLETED
+**Completion Date**: April 30, 2026  
+**Environment**: datascience conda environment  
+**Python Version**: 3.13.12
+
+### 1. Understanding Python Collections ✅
+
+#### Why Collections Matter:
+- **📦 Data Storage**: Store multiple values efficiently
+- **🔄 Data Manipulation**: Modify and access data programmatically
+- **📊 Data Science Essential**: Foundation for data handling
+- **🐛 Error Prevention**: Choose right structure to avoid bugs
+- **📈 Code Quality**: Well-chosen collections improve readability
+
+#### Common Beginner Issues:
+- Using wrong data structure for the problem
+- Accidentally modifying data that should be immutable
+- Confusion between indexing and key-based access
+- Writing repetitive code without proper collections
+
+### 2. Python Lists ✅
+
+#### What is a List?
+A **list** is an ordered, mutable collection that can store multiple items. Lists are versatile and commonly used in Data Science.
+
+#### Key Characteristics:
+- ✅ **Ordered**: Items maintain their position
+- ✅ **Mutable**: Can be modified after creation
+- ✅ **Indexed**: Access items by position (0-based)
+- ✅ **Heterogeneous**: Can store different data types
+- ✅ **Dynamic**: Can grow or shrink as needed
+
+#### Creating Lists:
+```python
+# Empty list
+empty_list = []
+
+# List with integers
+patient_ages = [45, 32, 67, 28, 54, 41]
+
+# List with strings
+diagnoses = ['Diabetes', 'Hypertension', 'Asthma']
+
+# Mixed data types
+patient_record = ['John Doe', 45, 'Diabetes', 72.5, True]
+```
+
+#### Accessing Elements:
+```python
+blood_pressures = [120, 135, 142, 118, 128]
+
+# Indexing (0-based)
+first = blood_pressures[0]        # 120
+last = blood_pressures[-1]        # 128
+
+# Slicing
+first_three = blood_pressures[0:3]  # [120, 135, 142]
+reversed_bp = blood_pressures[::-1] # [128, 118, 142, 135, 120]
+```
+
+#### Modifying Lists (Mutability):
+```python
+medications = ['Aspirin', 'Metformin']
+
+# Change element
+medications[1] = 'Insulin'
+
+# Add elements
+medications.append('Atorvastatin')
+medications.insert(1, 'Omeprazole')
+
+# Remove elements
+medications.remove('Aspirin')
+removed = medications.pop()
+```
+
+#### When to Use Lists:
+- ✅ Data is ordered and sequential
+- ✅ You need to modify elements frequently
+- ✅ Order matters and you access by position
+- ✅ You need to add/remove items dynamically
+
+### 3. Python Tuples ✅
+
+#### What is a Tuple?
+A **tuple** is an ordered, immutable collection. Once created, a tuple cannot be modified.
+
+#### Key Characteristics:
+- ✅ **Ordered**: Items maintain their position
+- ✅ **Immutable**: Cannot be modified after creation
+- ✅ **Indexed**: Access items by position (0-based)
+- ✅ **Hashable**: Can be used as dictionary keys
+- ✅ **Memory Efficient**: More compact than lists
+
+#### Creating Tuples:
+```python
+# Empty tuple
+empty_tuple = ()
+
+# Tuple with values
+vital_signs = (120, 80, 98.6, 72)
+patient_info = ('John', 'Doe', 'Male', 'A+')
+
+# Single element tuple (note the comma!)
+single = (42,)  # This is a tuple
+not_tuple = (42)  # This is just an integer
+
+# From list
+medications_tuple = tuple(['Aspirin', 'Metformin'])
+```
+
+#### Accessing and Unpacking:
+```python
+lab_results = (7.2, 140, 95, 210, 1.2)
+
+# Indexing
+hemoglobin = lab_results[0]
+cholesterol = lab_results[3]
+
+# Unpacking
+systolic, diastolic, temp, hr = 120, 80, 98.6, 72
+
+# Extended unpacking
+first, *middle, last = (1, 2, 3, 4, 5)
+```
+
+#### Immutability Demonstration:
+```python
+medical_record = ('John Doe', 45, 'Diabetes')
+
+# This will fail!
+try:
+    medical_record[1] = 46  # TypeError: 'tuple' object does not support item assignment
+except TypeError:
+    print("Tuples are immutable!")
+
+# Create new tuple instead
+updated_record = ('John Doe', 46, 'Diabetes')
+```
+
+#### When to Use Tuples:
+- ✅ Data should not change (fixed values)
+- ✅ You need data integrity protection
+- ✅ You want to use data as dictionary keys
+- ✅ Memory efficiency is important
+
+### 4. Python Dictionaries ✅
+
+#### What is a Dictionary?
+A **dictionary** is a collection of key-value pairs. Each key must be unique and immutable.
+
+#### Key Characteristics:
+- ✅ **Key-Value Pairs**: Each item has a key and value
+- ✅ **Mutable**: Can be modified after creation
+- ✅ **Key-Based Access**: Access values by key, not index
+- ✅ **Unique Keys**: Each key must be unique
+- ✅ **Hashable Keys**: Keys must be immutable
+
+#### Creating Dictionaries:
+```python
+# Empty dictionary
+empty_dict = {}
+empty_dict2 = dict()
+
+# Dictionary with string keys
+patient = {
+    'name': 'Jane Smith',
+    'age': 34,
+    'gender': 'Female',
+    'blood_type': 'O+',
+    'allergies': ['Penicillin', 'Latex']
+}
+
+# From lists using zip
+fields = ['id', 'name', 'age']
+values = [101, 'Bob Wilson', 45]
+patient_dict = dict(zip(fields, values))
+
+# Dictionary comprehension
+squares = {x: x**2 for x in range(1, 6)}
+```
+
+#### Accessing Values:
+```python
+vitals = {
+    'systolic': 120,
+    'diastolic': 80,
+    'temperature': 98.6,
+    'heart_rate': 72
+}
+
+# Access by key
+bp = vitals['systolic']           # 120
+
+# Using get() (safer - no error if key missing)
+temp = vitals.get('temperature')  # 98.6
+rr = vitals.get('respiratory_rate', 'Not recorded')  # 'Not recorded'
+```
+
+#### Modifying Dictionaries:
+```python
+medication = {'name': 'Metformin', 'dosage': '500mg'}
+
+# Add new key-value pair
+medication['route'] = 'oral'
+
+# Update existing value
+medication['dosage'] = '1000mg'
+
+# Update multiple items
+medication.update({'start_date': '2024-01-15', 'doctor': 'Dr. Johnson'})
+
+# Remove items
+removed = medication.pop('route')
+last_item = medication.popitem()
+del medication['dosage']
+
+# Clear all
+medication.clear()
+```
+
+#### When to Use Dictionaries:
+- ✅ You have labeled data with key-value relationships
+- ✅ You need fast lookup by name/key
+- ✅ Data represents attributes of an object
+- ✅ You need to model structured entities
+
+### 5. Choosing the Right Data Structure ✅
+
+#### Comparison Table:
+
+| Characteristic | List [] | Tuple () | Dict {} |
+|----------------|---------|----------|---------|
+| **Ordered** | ✅ Yes | ✅ Yes | ✅ Yes (3.7+) |
+| **Mutable** | ✅ Yes | ❌ No | ✅ Yes |
+| **Indexed** | ✅ By position | ✅ By position | ❌ By key |
+| **Duplicate items** | ✅ Allowed | ✅ Allowed | ❌ Keys unique |
+| **Memory usage** | Higher | Lower | Moderate |
+| **Use case** | Dynamic sequences | Fixed data | Labeled data |
+
+#### Quick Decision Guide:
+
+**Use LISTS when:**
+- Data is ordered and sequential
+- You need to modify elements frequently
+- Order matters and you access by position
+- Example: Patient visit history, test scores
+
+**Use TUPLES when:**
+- Data should not change (fixed values)
+- You need data integrity protection
+- You want to use data as dictionary keys
+- Example: Patient ID, coordinates, DOB
+
+**Use DICTIONARIES when:**
+- You have labeled data with key-value relationships
+- You need fast lookup by name/key
+- Data represents attributes of an object
+- Example: Patient records, configuration settings
+
+### 6. Common Operations Reference ✅
+
+#### List Operations:
+```python
+# Creating
+my_list = [1, 2, 3]
+
+# Accessing
+first = my_list[0]          # Index 0
+last = my_list[-1]          # Last item
+slice = my_list[1:3]       # Items 1-2
+
+# Modifying
+my_list[0] = 10             # Change item
+my_list.append(4)           # Add to end
+my_list.insert(0, 0)        # Insert at position
+my_list.remove(2)           # Remove value
+item = my_list.pop()        # Remove and return last
+
+# Information
+length = len(my_list)
+exists = 3 in my_list
+count = my_list.count(2)
+index = my_list.index(3)
+```
+
+#### Tuple Operations:
+```python
+# Creating
+my_tuple = (1, 2, 3)
+single = (1,)               # Note the comma!
+
+# Accessing (same as lists)
+first = my_tuple[0]
+last = my_tuple[-1]
+
+# Unpacking
+a, b, c = my_tuple
+first, *rest, last = my_tuple
+
+# Information
+length = len(my_tuple)
+exists = 2 in my_tuple
+count = my_tuple.count(1)
+index = my_tuple.index(2)
+```
+
+#### Dictionary Operations:
+```python
+# Creating
+my_dict = {'key': 'value'}
+
+# Accessing
+value = my_dict['key']              # KeyError if not found
+value = my_dict.get('key')          # Returns None if not found
+value = my_dict.get('key', 'default')  # Returns default if not found
+
+# Modifying
+my_dict['new_key'] = 'value'        # Add new
+my_dict['key'] = 'new_value'        # Update existing
+my_dict.update({'a': 1, 'b': 2})    # Add multiple
+value = my_dict.pop('key')          # Remove and return
+item = my_dict.popitem()            # Remove arbitrary item
+del my_dict['key']                  # Delete key
+
+# Information
+keys = my_dict.keys()
+values = my_dict.values()
+items = my_dict.items()
+length = len(my_dict)
+exists = 'key' in my_dict
+```
+
+### 7. Real-World Healthcare Example ✅
+
+```python
+# Hospital patient management using all three structures
+hospital_db = {
+    'patients': [  # LIST of patient dictionaries
+        {
+            'id': 'P001',
+            'name': 'Alice Johnson',
+            'demographics': ('1985-03-20', 'F', 'O+'),  # TUPLE
+            'vitals_history': [  # LIST
+                {'date': '2024-04-20', 'bp': '120/80', 'hr': 72},
+                {'date': '2024-04-21', 'bp': '118/78', 'hr': 70}
+            ],
+            'medications': ['Lisinopril', 'Metformin']
+        }
+    ],
+    'departments': ('ER', 'ICU', 'General', 'Surgery'),  # TUPLE
+    'stats': {  # DICTIONARY
+        'total_patients': 1,
+        'avg_age': 39
+    }
+}
+```
+
+### 8. Best Practices ✅
+
+#### ✅ Do's:
+1. **Choose appropriate structure** for your data
+2. **Use tuples for fixed data** that shouldn't change
+3. **Use get() for dictionaries** to handle missing keys safely
+4. **Use meaningful variable names** for collections
+5. **Document complex structures** with comments
+6. **Test membership** with `in` operator before accessing
+
+#### ❌ Don'ts:
+1. **Don't modify tuples** - create new ones instead
+2. **Don't use lists as dictionary keys** - they're not hashable
+3. **Don't assume keys exist** in dictionaries without checking
+4. **Don't mix data types** unnecessarily in collections
+5. **Don't ignore mutability** when choosing structures
+
+### 9. Common Pitfalls and Solutions ✅
+
+| Pitfall | Solution |
+|---------|----------|
+| Modifying tuple causes error | Use list if data needs to change |
+| KeyError in dictionary | Use `.get()` with default value |
+| Index out of range | Check `len()` before accessing index |
+| Confusing list vs dict access | Remember: lists use `[index]`, dicts use `[key]` |
+| Unintentional data modification | Use tuples for data that must stay fixed |
+
+### 10. Collections Mastery Achieved ✅
+
+#### ✅ Skills Demonstrated:
+- [x] **Lists**: Creating, accessing, modifying mutable collections
+- [x] **Tuples**: Creating, accessing immutable collections
+- [x] **Dictionaries**: Creating, accessing, modifying key-value collections
+- [x] **Mutability**: Understanding which structures can be modified
+- [x] **Indexing**: Position-based and key-based access
+- [x] **Structure Selection**: Choosing right collection for use cases
+- [x] **Real-World Application**: Healthcare data scenarios
+
+#### 🚀 Ready for Data Science:
+You can now:
+- Store and manipulate collections of data efficiently
+- Choose appropriate structures for different scenarios
+- Protect data integrity when needed
+- Model real-world entities using dictionaries
+- Write cleaner, more maintainable Python code
+
+**Python Collections Mastery Status**: ✅ COMPLETE AND READY FOR DATA SCIENCE WORK
+
+### Quick Reference Summary
+
+```bash
+# Lists - Ordered, Mutable []
+patient_ages = [45, 32, 67]
+first_age = patient_ages[0]
+patient_ages.append(55)
+
+# Tuples - Ordered, Immutable ()
+vitals = (120, 80, 98.6)
+systolic, diastolic, temp = vitals
+# Cannot modify: vitals[0] = 130  # Error!
+
+# Dictionaries - Key-Value Pairs {}
+patient = {'name': 'John', 'age': 45}
+name = patient['name']
+age = patient.get('age', 0)
+patient['gender'] = 'M'
+```
+
+**You now have complete mastery of Python collections! 🎉**
+
+---
