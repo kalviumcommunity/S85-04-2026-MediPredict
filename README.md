@@ -3379,3 +3379,442 @@ square = lambda x: x ** 2
 **You now have complete mastery of Python functions! 🎉**
 
 ---
+
+## Function Data Flow: Parameters, Arguments, and Return Values
+
+### Data Flow Mastery ✅ COMPLETED
+**Completion Date**: April 30, 2026  
+**Environment**: datascience conda environment  
+**Python Version**: 3.13.12
+
+### 1. Understanding Parameters and Arguments ✅
+
+#### Key Distinction:
+- **Parameters**: Variables in the function **definition** (placeholders)
+- **Arguments**: Actual values passed during function **calls** (real data)
+
+#### Analogy:
+Think of a function like a vending machine:
+- **Parameters** = The coin slot and button (where inputs go)
+- **Arguments** = The actual coins you insert and button you press
+- **Return value** = The snack that comes out
+
+#### Parameters vs Arguments Example:
+```python
+# Function DEFINITION (parameters: weight, height)
+def calculate_bmi(weight, height):
+    """
+    PARAMETERS (in definition):
+        weight: The parameter name (placeholder)
+        height: The parameter name (placeholder)
+    """
+    bmi = weight / (height ** 2)
+    return bmi
+
+# Function CALLS (arguments: actual values)
+bmi1 = calculate_bmi(70, 1.75)  # 70 → weight, 1.75 → height
+bmi2 = calculate_bmi(85, 1.80)  # 85 → weight, 1.80 → height
+bmi3 = calculate_bmi(55, 1.65)  # 55 → weight, 1.65 → height
+
+# ✅ Same function (parameters), different data (arguments), different results!
+```
+
+#### Multiple Parameters Example:
+```python
+def assess_patient_risk(age, systolic_bp, smoker, family_history):
+    """
+    Assess cardiovascular risk based on multiple factors.
+    
+    PARAMETERS (placeholders in definition):
+        age: Patient age in years
+        systolic_bp: Systolic blood pressure
+        smoker: True if patient smokes
+        family_history: True if heart disease in family
+    """
+    risk_score = 0
+    
+    if age > 65: risk_score += 3
+    elif age > 45: risk_score += 2
+    elif age > 30: risk_score += 1
+    
+    if systolic_bp > 140: risk_score += 3
+    elif systolic_bp > 130: risk_score += 2
+    elif systolic_bp > 120: risk_score += 1
+    
+    if smoker: risk_score += 3
+    if family_history: risk_score += 2
+    
+    if risk_score >= 7: return "High Risk"
+    elif risk_score >= 4: return "Moderate Risk"
+    else: return "Low Risk"
+
+# Different patients = different arguments
+alice_risk = assess_patient_risk(34, 118, False, False)   # Different args
+bob_risk = assess_patient_risk(58, 145, True, True)         # Different args
+carol_risk = assess_patient_risk(45, 125, False, True)    # Different args
+
+print(f"Alice: {alice_risk}")  # Low Risk
+print(f"Bob: {bob_risk}")      # High Risk
+print(f"Carol: {carol_risk}") # Moderate Risk
+```
+
+### 2. Returning Values from Functions ✅
+
+#### Why Return Values Matter:
+- **🔧 Reusability**: Results can be used elsewhere in the program
+- **🔗 Composability**: Output of one function becomes input to another
+- **🧪 Testability**: Can verify function produces correct output
+- **📦 Data Flow**: Information moves through the program via returns
+
+#### Return vs Print - Critical Difference:
+```python
+# ❌ BAD: Only prints, doesn't return
+def calculate_area_print(length, width):
+    area = length * width
+    print(f"Area: {area}")  # ❌ Can't use this value elsewhere!
+    # No return statement!
+
+# ✅ GOOD: Returns the value
+def calculate_area_return(length, width):
+    area = length * width
+    return area  # ✅ Can store, use, or pass this value
+
+# Testing BAD version
+result_print = calculate_area_print(5, 3)
+print(f"Captured: {result_print}")  # None!
+# Can't do: final = calculate_area_print(5, 3) + 10  # Would crash!
+
+# Testing GOOD version
+result_return = calculate_area_return(5, 3)
+print(f"Captured: {result_return}")  # 15
+
+# With returned value, we can:
+# 1. Store for later use
+room_area = calculate_area_return(4, 5)
+
+# 2. Use in calculations
+total_area = calculate_area_return(4, 5) + calculate_area_return(3, 4)
+
+# 3. Pass to other functions
+def calculate_paint_needed(area, coverage_per_liter=10):
+    return area / coverage_per_liter
+
+paint_needed = calculate_paint_needed(calculate_area_return(4, 5))
+
+# 4. Use in conditions
+if calculate_area_return(10, 10) > 50:
+    print("Large room!")
+```
+
+#### Returning Multiple Values:
+```python
+# Returning multiple values as a tuple
+def analyze_vitals(heart_rate, systolic, diastolic):
+    """
+    Analyze vital signs and return multiple assessments.
+    
+    Returns tuple: (hr_status, bp_status, overall_status)
+    """
+    # Heart rate assessment
+    if 60 <= heart_rate <= 100: hr_status = "Normal"
+    elif heart_rate < 60: hr_status = "Bradycardia"
+    else: hr_status = "Tachycardia"
+    
+    # BP assessment
+    if systolic < 120 and diastolic < 80: bp_status = "Normal"
+    elif systolic < 140 or diastolic < 90: bp_status = "Elevated"
+    else: bp_status = "Hypertensive"
+    
+    # Overall status
+    if hr_status == "Normal" and bp_status == "Normal":
+        overall = "Healthy"
+    elif "Bradycardia" in hr_status or "Tachycardia" in hr_status:
+        overall = "Critical"
+    else:
+        overall = "Caution"
+    
+    # Return multiple values as tuple
+    return hr_status, bp_status, overall
+
+# Usage
+hr_status, bp_status, overall = analyze_vitals(72, 118, 78)
+print(f"Heart Rate: {hr_status}, BP: {bp_status}, Overall: {overall}")
+```
+
+#### Returning Dictionaries (Structured Data):
+```python
+def comprehensive_vital_analysis(heart_rate, systolic, diastolic, temperature):
+    """Comprehensive analysis returning structured data."""
+    return {
+        'heart_rate': {
+            'value': heart_rate,
+            'status': 'Normal' if 60 <= heart_rate <= 100 else 'Abnormal',
+            'unit': 'bpm'
+        },
+        'blood_pressure': {
+            'systolic': systolic,
+            'diastolic': diastolic,
+            'status': 'Normal' if systolic < 120 and diastolic < 80 else 'Elevated',
+            'unit': 'mmHg'
+        },
+        'temperature': {
+            'value': temperature,
+            'status': 'Normal' if 97 <= temperature <= 99 else 'Fever',
+            'unit': 'F'
+        }
+    }
+
+# Usage
+analysis = comprehensive_vital_analysis(72, 118, 78, 98.6)
+print(f"Heart Rate: {analysis['heart_rate']['value']} {analysis['heart_rate']['unit']}")
+print(f"Status: {analysis['heart_rate']['status']}")
+```
+
+#### Early Return Pattern (Guard Clauses):
+```python
+def safe_divide(numerator, denominator):
+    """
+    Safely divide with early return for invalid cases.
+    """
+    # Guard clause - return early if denominator is zero
+    if denominator == 0:
+        return None  # Early return!
+    
+    # Main calculation only happens if guard passes
+    return numerator / denominator
+
+# Usage
+print(f"safe_divide(10, 2) = {safe_divide(10, 2)}")   # 5.0
+print(f"safe_divide(10, 0) = {safe_divide(10, 0)}")   # None
+```
+
+### 3. Using Returned Results - Building Data Pipelines ✅
+
+#### Data Pipeline Pattern:
+```
+Input → Function A → Return → Function B → Return → Function C → Output
+```
+
+#### Simple Data Pipeline Example:
+```python
+# Step 1: Calculate BMI
+def calculate_bmi(weight_kg, height_m):
+    """Calculate and return BMI."""
+    return weight_kg / (height_m ** 2)
+
+# Step 2: Classify BMI
+def classify_bmi(bmi):
+    """Classify BMI value and return category."""
+    if bmi < 18.5: return "Underweight"
+    elif bmi < 25: return "Normal"
+    elif bmi < 30: return "Overweight"
+    else: return "Obese"
+
+# Step 3: Calculate risk score from BMI category
+def calculate_bmi_risk(bmi_category):
+    """Return risk score based on BMI category."""
+    risk_scores = {
+        "Underweight": 1,
+        "Normal": 0,
+        "Overweight": 2,
+        "Obese": 4
+    }
+    return risk_scores.get(bmi_category, 0)
+
+# Step 4: Generate recommendation
+def generate_recommendation(risk_score):
+    """Generate health recommendation based on risk score."""
+    if risk_score == 0: return "Maintain healthy lifestyle"
+    elif risk_score <= 2: return "Consider dietary changes"
+    else: return "Consult healthcare provider"
+
+# PIPELINE: Output of each function becomes input to next
+weight = 85
+height = 1.75
+
+bmi = calculate_bmi(weight, height)                    # Step 1
+bmi_category = classify_bmi(bmi)                        # Step 2 (uses bmi)
+risk_score = calculate_bmi_risk(bmi_category)           # Step 3 (uses category)
+recommendation = generate_recommendation(risk_score)  # Step 4 (uses score)
+
+print(f"BMI: {bmi:.1f} → Category: {bmi_category}")
+print(f"Risk Score: {risk_score}")
+print(f"Recommendation: {recommendation}")
+```
+
+### 4. Common Mistakes and Solutions ✅
+
+#### Mistake 1: Hardcoding Values
+```python
+# ❌ BAD - Function only works for one specific patient:
+def bad_calculate_patient_bmi():
+    weight = 70  # ❌ Hardcoded!
+    height = 1.75  # ❌ Hardcoded!
+    return weight / (height ** 2)
+
+# ✅ GOOD - Function accepts any weight and height:
+def good_calculate_bmi(weight, height):
+    return weight / (height ** 2)
+
+# Usage
+good_calculate_bmi(70, 1.75)   # Patient 1
+good_calculate_bmi(85, 1.80)   # Patient 2
+good_calculate_bmi(55, 1.60)   # Patient 3
+```
+
+#### Mistake 2: Print Instead of Return
+```python
+# ❌ BAD - Function only prints, can't use the value:
+def bad_double_value(x):
+    result = x * 2
+    print(f"Result: {result}")  # ❌ Value is lost after printing
+    # No return statement!
+
+output = bad_double_value(5)
+print(f"Captured: {output}")  # None!
+# Can't do: final = bad_double_value(5) + 10  # Would crash!
+
+# ✅ GOOD - Function returns the value:
+def good_double_value(x):
+    return x * 2  # ✅ Value is sent back to caller
+
+returned_value = good_double_value(5)
+print(f"Captured: {returned_value}")  # 10
+final = good_double_value(5) + 10  # ✅ Works! Result: 20
+```
+
+#### Mistake 3: Missing Return Statements
+```python
+# ❌ BAD - Forgetting to return in some code paths:
+def bad_find_max(a, b):
+    if a > b:
+        return a  # Returns if a > b
+    # ❌ What if a <= b? No return! Returns None implicitly!
+
+result1 = bad_find_max(10, 5)  # 10 ✓
+result2 = bad_find_max(3, 8)   # None ✗
+
+# ✅ GOOD - Always return a value:
+def good_find_max(a, b):
+    if a > b:
+        return a
+    else:
+        return b  # ✅ Always returns something
+
+result3 = good_find_max(10, 5)  # 10 ✓
+result4 = good_find_max(3, 8)   # 8 ✓
+```
+
+#### Mistake 4: Ignoring Returned Values
+```python
+# ❌ BAD - Calling function but not using result:
+def get_important_data():
+    return "Critical Patient Alert!"
+
+get_important_data()  # ❌ Called but result is lost!
+
+# ✅ GOOD - Capture and use the returned value:
+alert = get_important_data()  # ✅ Captured!
+print(f"Alert: {alert}")
+print(f"Can use it: {alert.upper()}")
+```
+
+#### Mistake 5: Inconsistent Return Types
+```python
+# ❌ BAD - Returning different types from different paths:
+def bad_calculate_discount(price, is_member):
+    if is_member:
+        return price * 0.9  # Returns float
+    # ❌ No explicit return = returns None!
+
+member_price = bad_calculate_discount(100, True)     # float
+non_member_price = bad_calculate_discount(100, False)  # None ✗
+
+# ✅ GOOD - Consistent return type:
+def good_calculate_discount(price, is_member):
+    if is_member:
+        return price * 0.9
+    return price  # ✅ Always returns a number
+
+member_price2 = good_calculate_discount(100, True)     # float
+non_member_price2 = good_calculate_discount(100, False)  # float ✓
+```
+
+### 5. Best Practices for Function Data Flow ✅
+
+#### ✅ Do's:
+1. **Use Parameters, Not Hardcoding**
+   - Make functions work with any valid input
+   - Pass data as arguments, don't embed in function
+
+2. **Return Values, Don't Just Print**
+   - Use `return` to send data back
+   - Use `print` only for user-facing output
+
+3. **Capture and Use Returned Values**
+   - Store return values in variables
+   - Pass returned values to other functions
+   - Use in calculations and conditions
+
+4. **Keep Return Types Consistent**
+   - All code paths should return same type
+   - Use None intentionally, not by accident
+
+5. **Design for Composability**
+   - Output of function A should work as input to function B
+   - Keep functions focused on single tasks
+
+6. **Use Clear Parameter Names**
+   - Names should describe what data is expected
+   - `patient_age` is better than `a`
+
+7. **Document Input and Output**
+   - Docstrings should explain parameters and return values
+   - Helps other developers (and future you!)
+
+#### Quick Reference Summary:
+
+```bash
+# Parameters (in definition) vs Arguments (in call)
+def greet(name):      # Parameter: name (placeholder)
+    return f"Hello {name}"
+
+greet("Alice")       # Argument: "Alice" (actual value)
+
+# Return values
+def calculate(x, y):
+    return x + y     # ✅ Send result back
+
+result = calculate(3, 4)  # ✅ Capture returned value
+print(result + 10)          # ✅ Use in calculations
+
+# Data pipeline
+final = step3(step2(step1(input_data)))
+# step1 returns → step2 receives → step2 returns → step3 receives
+```
+
+### 6. Data Flow Mastery Achieved ✅
+
+#### ✅ Skills Demonstrated:
+- [x] **Parameters vs Arguments**: Understanding placeholders vs actual values
+- [x] **Return Values**: Using `return` to send data back to callers
+- [x] **Data Pipelines**: Building chains of functions that pass data
+- [x] **Composability**: Output of one function becomes input to another
+- [x] **Common Mistakes**: Avoiding hardcoding, print vs return, missing returns
+- [x] **Best Practices**: Clear parameters, consistent returns, documentation
+- [x] **Complex Workflows**: Multi-stage patient processing system
+
+#### 🚀 Ready for Data Science:
+You can now:
+- Pass data into functions effectively using parameters
+- Return results that can be reused throughout your program
+- Build data processing pipelines with multiple connected functions
+- Avoid common pitfalls like hardcoding and mixing print/return
+- Design functions as clear input-output units
+- Create modular, testable, and maintainable code
+
+**Function Data Flow Mastery Status**: ✅ COMPLETE AND READY FOR DATA SCIENCE WORK
+
+**You now have complete mastery of passing data into functions and returning results! 🎉**
+
+---
