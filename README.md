@@ -2763,3 +2763,619 @@ for i, name in enumerate(names):
 **You now have complete mastery of Python loops! 🎉**
 
 ---
+
+## Python Functions: Defining and Calling Functions
+
+### Functions Mastery ✅ COMPLETED
+**Completion Date**: April 30, 2026  
+**Environment**: datascience conda environment  
+**Python Version**: 3.13.12
+
+### 1. Understanding Python Functions ✅
+
+#### Why Functions Matter:
+- **🔄 Reusability**: Write once, use many times
+- **📦 Organization**: Break complex problems into smaller parts
+- **📖 Readability**: Code is easier to understand with named operations
+- **🧹 Maintainability**: Changes only need to be made in one place
+- **✅ Testing**: Functions can be tested individually
+- **🎯 Abstraction**: Hide complex logic behind simple interfaces
+
+#### Common Beginner Issues:
+- Repeating the same code multiple times
+- Writing long, unreadable scripts
+- Difficulty understanding or modifying code
+- Bugs caused by inconsistent logic
+- Confusion about variable scope
+
+### 2. Defining Functions ✅
+
+#### What is a Function?
+A **function** is a named block of code that performs a specific task. Functions help organize code, reduce repetition, and make programs modular.
+
+#### Function Definition Syntax:
+```python
+def function_name():
+    """
+    Docstring explaining what the function does.
+    """
+    # Function body (indented code)
+    # Perform some operations
+    return result  # Optional
+```
+
+#### Key Components:
+- ✅ **def keyword**: Starts function definition
+- ✅ **Function name**: Should be descriptive (verb_noun format)
+- ✅ **Parentheses ()**: Hold parameters (can be empty)
+- ✅ **Colon :**: Ends function signature
+- ✅ **Indentation**: Function body must be indented (4 spaces)
+- ✅ **Docstring**: Explains what the function does
+- ✅ **return statement**: Sends result back to caller (optional)
+
+#### Basic Function Examples:
+```python
+# Function with no parameters, no return
+def greet_patient():
+    """
+    Prints a greeting message for a patient.
+    """
+    print("👋 Welcome to MediPredict Healthcare System!")
+    print("🩺 Please check in at the reception.")
+
+# Function with parameters and return
+def calculate_bmi(weight_kg, height_m):
+    """
+    Calculate Body Mass Index (BMI).
+    
+    Args:
+        weight_kg: Weight in kilograms
+        height_m: Height in meters
+    
+    Returns:
+        BMI value as float
+    """
+    bmi = weight_kg / (height_m ** 2)
+    return bmi
+
+# Function with multiple operations
+def get_vital_signs_status(heart_rate, blood_pressure):
+    """
+    Assess vital signs and return status.
+    
+    Args:
+        heart_rate: Heart rate in beats per minute
+        blood_pressure: Blood pressure as "systolic/diastolic"
+    
+    Returns:
+        Status string: "Normal", "Elevated", or "Critical"
+    """
+    systolic, diastolic = map(int, blood_pressure.split('/'))
+    hr_normal = 60 <= heart_rate <= 100
+    bp_normal = systolic < 120 and diastolic < 80
+    
+    if hr_normal and bp_normal:
+        return "Normal"
+    elif heart_rate > 120 or systolic > 140:
+        return "Critical"
+    else:
+        return "Elevated"
+```
+
+#### Healthcare Function Examples:
+```python
+def validate_patient_age(age):
+    """
+    Validate if age is within acceptable range.
+    
+    Args:
+        age: Patient age in years
+    
+    Returns:
+        True if valid, False otherwise
+    """
+    return isinstance(age, (int, float)) and 0 <= age <= 120
+
+def format_patient_name(first_name, last_name):
+    """
+    Format patient name with proper capitalization.
+    
+    Args:
+        first_name: Patient's first name
+        last_name: Patient's last name
+    
+    Returns:
+        Formatted full name
+    """
+    formatted_first = first_name.strip().title()
+    formatted_last = last_name.strip().title()
+    return f"{formatted_first} {formatted_last}"
+
+def classify_blood_pressure(systolic, diastolic):
+    """
+    Classify blood pressure reading.
+    
+    Args:
+        systolic: Systolic pressure in mmHg
+        diastolic: Diastolic pressure in mmHg
+    
+    Returns:
+        Classification string
+    """
+    if systolic < 120 and diastolic < 80:
+        return "Normal"
+    elif 120 <= systolic <= 129 and diastolic < 80:
+        return "Elevated"
+    elif 130 <= systolic <= 139 or 80 <= diastolic <= 89:
+        return "Stage 1 Hypertension"
+    elif systolic >= 140 or diastolic >= 90:
+        return "Stage 2 Hypertension"
+    else:
+        return "Unknown"
+```
+
+### 3. Calling Functions ✅
+
+#### What is Calling a Function?
+**Calling** (or invoking) a function means executing the code inside it.
+
+#### Function Call Syntax:
+```python
+# Call function with no arguments
+function_name()
+
+# Call function with arguments
+function_name(arg1, arg2)
+
+# Call function and capture return value
+result = function_name(arg1)
+```
+
+#### Execution Flow:
+1. **Call**: Program jumps to function definition
+2. **Execute**: Function body runs with provided arguments
+3. **Return**: Function completes and control returns to caller
+4. **Continue**: Program continues from after the function call
+
+#### Calling Function Examples:
+```python
+# Call function with no arguments
+greet_patient()
+
+# Call function with arguments and capture return
+patient_weight = 70  # kg
+patient_height = 1.75  # meters
+
+patient_bmi = calculate_bmi(patient_weight, patient_height)
+print(f"BMI: {patient_bmi:.2f}")
+
+# Call function multiple times with different values
+patients_data = [
+    (65, 1.70),   # Patient 1
+    (80, 1.80),   # Patient 2
+    (55, 1.60),   # Patient 3
+]
+
+for i, (weight, height) in enumerate(patients_data, 1):
+    bmi = calculate_bmi(weight, height)
+    print(f"Patient {i}: BMI = {bmi:.2f}")
+
+# Use function result in condition
+test_bmi = calculate_bmi(85, 1.75)
+
+if test_bmi > 30:
+    category = "Obese"
+elif test_bmi > 25:
+    category = "Overweight"
+elif test_bmi > 18.5:
+    category = "Normal"
+else:
+    category = "Underweight"
+
+print(f"BMI: {test_bmi:.2f} -> Category: {category}")
+```
+
+#### Chaining Function Calls:
+```python
+def get_raw_data():
+    """Simulate fetching raw patient data."""
+    return [98.6, 99.1, -999, 101.5, 97.8]
+
+def clean_data(data):
+    """Remove invalid temperature readings."""
+    return [x for x in data if x > 0]
+
+def calculate_average(data):
+    """Calculate average of cleaned data."""
+    return sum(data) / len(data) if data else 0
+
+# Chain function calls
+raw = get_raw_data()
+cleaned = clean_data(raw)
+average = calculate_average(cleaned)
+
+print(f"Raw data: {raw}")
+print(f"Cleaned data: {cleaned}")
+print(f"Average temperature: {average:.2f}°F")
+
+# Or chain in one line (less readable)
+direct_average = calculate_average(clean_data(get_raw_data()))
+```
+
+### 4. Parameters and Arguments ✅
+
+#### What are Parameters and Arguments?
+- **Parameters**: Variables listed in the function definition (placeholders)
+- **Arguments**: Actual values passed to the function when calling it
+
+#### Types of Arguments:
+| Type | Description | Example |
+|------|-------------|---------|
+| **Positional** | Matched by position/order | `func(1, 2, 3)` |
+| **Keyword** | Matched by parameter name | `func(a=1, b=2)` |
+| **Default** | Parameters with predefined values | `def func(x, y=10)` |
+| **Variable (*args)** | Multiple positional arguments | `def func(*args)` |
+| **Variable (**kwargs)** | Multiple keyword arguments | `def func(**kwargs)` |
+
+#### Positional vs Keyword Arguments:
+```python
+def calculate_dosage(weight, age, medication):
+    """
+    Calculate medication dosage based on patient info.
+    
+    Args:
+        weight: Patient weight in kg
+        age: Patient age in years
+        medication: Name of medication
+    """
+    base_dose = 10  # mg per kg
+    
+    # Adjust for age
+    if age < 12:
+        adjustment = 0.5  # 50% for children
+    elif age > 65:
+        adjustment = 0.75  # 75% for seniors
+    else:
+        adjustment = 1.0  # Full dose for adults
+    
+    dosage = weight * base_dose * adjustment
+    return {
+        'medication': medication,
+        'dosage_mg': round(dosage, 1),
+        'adjustment': adjustment
+    }
+
+# Positional arguments (order matters!)
+dose1 = calculate_dosage(70, 45, 'Aspirin')
+print(f"Adult dose: {dose1}")
+
+# Keyword arguments (order doesn't matter)
+dose2 = calculate_dosage(age=70, weight=65, medication='Metformin')
+print(f"Senior dose: {dose2}")
+
+# Mixing positional and keyword (positional must come first)
+dose3 = calculate_dosage(80, medication='Lisinopril', age=55)
+print(f"Mixed dose: {dose3}")
+```
+
+#### Default Parameter Values:
+```python
+def record_vitals(patient_id, temperature=98.6, heart_rate=72, 
+                bp_systolic=120, bp_diastolic=80):
+    """
+    Record patient vital signs with default normal values.
+    
+    Args:
+        patient_id: Unique patient identifier (required)
+        temperature: Body temperature in Fahrenheit (default: 98.6)
+        heart_rate: Heart rate in bpm (default: 72)
+        bp_systolic: Systolic BP in mmHg (default: 120)
+        bp_diastolic: Diastolic BP in mmHg (default: 80)
+    """
+    return {
+        'patient_id': patient_id,
+        'temperature': temperature,
+        'heart_rate': heart_rate,
+        'blood_pressure': f"{bp_systolic}/{bp_diastolic}",
+        'recorded_at': '2024-04-30 10:00'
+    }
+
+# Using all defaults
+vitals1 = record_vitals('P001')
+print(f"All defaults: {vitals1}")
+
+# Overriding some defaults
+vitals2 = record_vitals('P002', temperature=101.2, heart_rate=95)
+print(f"Some overrides: {vitals2}")
+
+# Selective overrides with keywords
+vitals3 = record_vitals('P003', bp_systolic=140, bp_diastolic=90)
+print(f"Selective overrides: {vitals3}")
+```
+
+#### ⚠️ Important: Mutable Default Values
+```python
+# BAD - Don't use mutable default values!
+def bad_add_medication(med_list=[]):
+    med_list.append('Aspirin')
+    return med_list
+
+# GOOD - Use None and check inside function
+def good_add_medication(med_list=None):
+    if med_list is None:
+        med_list = []
+    med_list.append('Aspirin')
+    return med_list
+
+# Testing
+result1 = good_add_medication()
+result2 = good_add_medication()
+print(f"Call 1: {result1}")
+print(f"Call 2: {result2}")  # Each call is independent
+```
+
+#### Variable Arguments (*args and **kwargs):
+```python
+# *args - Variable number of positional arguments
+def calculate_statistics(*readings):
+    """
+    Calculate statistics for variable number of readings.
+    
+    Args:
+        *readings: Variable number of numeric readings
+    
+    Returns:
+        Dictionary with count, min, max, avg
+    """
+    if not readings:
+        return {'count': 0, 'min': None, 'max': None, 'avg': None}
+    
+    return {
+        'count': len(readings),
+        'min': min(readings),
+        'max': max(readings),
+        'avg': sum(readings) / len(readings)
+    }
+
+# Usage
+stats1 = calculate_statistics(98.6, 99.1, 97.8, 101.5)
+print(f"Temperature stats: {stats1}")
+
+# **kwargs - Variable number of keyword arguments
+def create_patient_record(patient_id, **patient_data):
+    """
+    Create a patient record with required ID and optional data fields.
+    
+    Args:
+        patient_id: Required unique identifier
+        **patient_data: Optional keyword arguments for patient data
+    
+    Returns:
+        Complete patient record dictionary
+    """
+    record = {'patient_id': patient_id}
+    record.update(patient_data)
+    record['created_at'] = '2024-04-30'
+    return record
+
+# Usage
+patient1 = create_patient_record('P001',
+                                name='Alice Johnson',
+                                age=34,
+                                blood_type='O+')
+print(f"Patient 1: {patient1}")
+
+patient2 = create_patient_record('P002',
+                                name='Bob Smith',
+                                age=45,
+                                weight=80,
+                                height=175,
+                                allergies=['Penicillin'])
+print(f"Patient 2: {patient2}")
+```
+
+### 5. Function Scope ✅
+
+#### What is Scope?
+**Scope** refers to where variables can be accessed in your code.
+
+#### Types of Scope:
+- ✅ **Local Scope**: Variables created inside a function (only accessible there)
+- ✅ **Global Scope**: Variables created outside functions (accessible everywhere)
+- ✅ **LEGB Rule**: Python looks for variables in order: Local, Enclosing, Global, Built-in
+
+#### Local Scope Examples:
+```python
+def demonstrate_local_scope():
+    """
+    Shows that variables inside functions are local.
+    """
+    local_variable = "I am local"
+    print(f"Inside function: {local_variable}")
+    return local_variable
+
+result = demonstrate_local_scope()
+print(f"Returned value: {result}")
+
+# This would cause an error:
+# print(f"Outside function: {local_variable}")  # NameError!
+```
+
+#### Global Scope Examples:
+```python
+global_hospital_name = "City General Hospital"
+
+def use_global_variable():
+    """Access global variable inside function."""
+    print(f"Inside function: {global_hospital_name}")
+    return f"Welcome to {global_hospital_name}"
+
+print(f"Outside function: {global_hospital_name}")
+welcome_msg = use_global_variable()
+```
+
+#### Variable Shadowing:
+```python
+patient_count = 100  # Global
+
+def count_patients():
+    patient_count = 5  # Local - shadows global
+    print(f"Inside function (local): {patient_count}")
+    return patient_count
+
+print(f"Before function call (global): {patient_count}")
+local_count = count_patients()
+print(f"After function call (global unchanged): {patient_count}")
+print(f"Function returned (local value): {local_count}")
+```
+
+#### Modifying Global Variables:
+```python
+# Without global keyword (creates local variable)
+total_patients_processed = 0
+
+def process_patient_good(patient_name):
+    """
+    BEST: Uses global keyword to modify global variable.
+    """
+    global total_patients_processed
+    total_patients_processed = total_patients_processed + 1
+    print(f"Processed {patient_name} (Total: {total_patients_processed})")
+
+# Better approach - pass and return values
+def process_patient_better(current_count, patient_name):
+    """
+    BEST: No global variables, pure function.
+    """
+    new_count = current_count + 1
+    print(f"Processed {patient_name} (Total: {new_count})")
+    return new_count
+
+# Demonstration
+count = 0
+count = process_patient_better(count, "Alice")
+count = process_patient_better(count, "Bob")
+print(f"Final count: {count}")
+```
+
+### 6. Best Practices ✅
+
+#### ✅ Do's:
+1. **Single Responsibility**: Each function does one thing well
+2. **Descriptive Names**: Function name describes what it does
+3. **Docstrings**: Explain purpose, parameters, and return values
+4. **Input Validation**: Check parameters are valid
+5. **Return Values**: Return useful data, not just print
+6. **Pure Functions**: Same input → Same output, no side effects
+7. **Keep Short**: Functions should fit on one screen (~20-30 lines)
+
+#### ❌ Don'ts:
+1. **Don't modify global variables** inside functions
+2. **Don't use mutable default values** (use None instead)
+3. **Don't create deeply nested functions** (max 2-3 levels)
+4. **Don't ignore return values** when they're useful
+5. **Don't write functions that do too many things**
+
+### 7. Quick Reference Guide ✅
+
+#### Function Definition:
+```python
+def function_name(param1, param2='default'):
+    """
+    Docstring describing function.
+    
+    Args:
+        param1: Description of param1
+        param2: Description of param2 (default: 'default')
+    
+    Returns:
+        Description of return value
+    """
+    # Function body
+    result = param1 + param2
+    return result
+```
+
+#### Function Calling:
+```python
+# Basic call
+function_name()
+
+# With arguments
+function_name(arg1, arg2)
+
+# With keyword arguments
+function_name(param1=value1, param2=value2)
+
+# Capture return value
+result = function_name(arg1)
+
+# Ignore return value
+function_name(arg1)
+```
+
+#### Common Patterns:
+```python
+# Validation function
+def validate_data(data):
+    errors = []
+    if not data:
+        errors.append("Data is empty")
+    return errors
+
+# Calculation function
+def calculate_metric(value1, value2):
+    return value1 / value2 if value2 != 0 else None
+
+# Formatter function
+def format_record(data):
+    return f"Name: {data['name']}, Age: {data['age']}"
+```
+
+### 8. Functions Mastery Achieved ✅
+
+#### ✅ Skills Demonstrated:
+- [x] **Function Definition**: Using def keyword with clear names and docstrings
+- [x] **Function Calling**: Executing functions and handling return values
+- [x] **Parameters**: Positional, keyword, default, *args, **kwargs
+- [x] **Scope**: Understanding local vs global variables
+- [x] **Best Practices**: Single responsibility, input validation, pure functions
+- [x] **Practical Applications**: Healthcare data validation and processing workflows
+
+#### 🚀 Ready for Data Science:
+You can now:
+- Organize code into reusable, logical units
+- Write modular and maintainable programs
+- Create clear, testable code components
+- Build scalable data processing workflows
+- Reduce code repetition and errors
+- Understand and manage variable scope
+
+**Python Functions Mastery Status**: ✅ COMPLETE AND READY FOR DATA SCIENCE WORK
+
+### Quick Reference Summary
+
+```bash
+# Define function
+def function_name(param1, param2='default'):
+    """Docstring explaining function."""
+    # Function body
+    return result
+
+# Call function
+result = function_name(arg1, arg2)
+
+# With keyword arguments
+result = function_name(param1=value1, param2=value2)
+
+# Variable arguments
+def flexible(*args, **kwargs):
+    pass
+
+# Lambda (anonymous function)
+square = lambda x: x ** 2
+```
+
+**You now have complete mastery of Python functions! 🎉**
+
+---
