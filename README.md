@@ -2211,3 +2211,555 @@ if not verified:
 **You now have complete mastery of conditional logic in Python! 🎉**
 
 ---
+
+## Python Loops: for and while Loops
+
+### Loops Mastery ✅ COMPLETED
+**Completion Date**: April 30, 2026  
+**Environment**: datascience conda environment  
+**Python Version**: 3.13.12
+
+### 1. Understanding Python Loops ✅
+
+#### Why Loops Matter:
+- **🔄 Automation**: Repeat operations without writing repetitive code
+- **📊 Data Processing**: Process collections item by item
+- **⚡ Efficiency**: Handle large datasets programmatically
+- **🎯 Scalability**: Code works for any data size
+- **🧹 Cleaner Code**: Replace manual repetition with iteration
+
+#### Common Beginner Issues:
+- Writing repetitive code instead of loops
+- Creating infinite loops accidentally
+- Using the wrong loop type for the task
+- Difficulty understanding loop flow
+- Forgetting to update loop variables
+
+### 2. for Loops ✅
+
+#### What is a for Loop?
+A **for loop** iterates over a sequence (list, tuple, dictionary, string, or range) and executes code for each item. Use it when you know the number of iterations in advance.
+
+#### Key Concepts:
+- ✅ **Iteration**: Process each item in a sequence
+- ✅ **Sequence**: List, tuple, string, dictionary, range
+- ✅ **Loop Variable**: Holds current item value
+- ✅ **Definite Iteration**: Number of iterations is known
+
+#### Basic for Loop:
+```python
+# Iterating over a list
+patient_names = ['Alice', 'Bob', 'Carol', 'David', 'Eve']
+
+for name in patient_names:
+    print(f"👤 {name}")
+
+print(f"Total patients: {len(patient_names)}")
+```
+
+#### Iterating with range():
+```python
+# range(stop) - starts at 0
+for i in range(5):
+    print(f"Count: {i}")  # 0, 1, 2, 3, 4
+
+# range(start, stop)
+for i in range(1, 6):
+    print(f"Count: {i}")  # 1, 2, 3, 4, 5
+
+# range(start, stop, step)
+for i in range(0, 10, 2):
+    print(f"Even: {i}")   # 0, 2, 4, 6, 8
+
+# Counting backwards
+for i in range(10, 0, -1):
+    print(f"{i}...")
+print("🚀 Launch!")
+```
+
+#### Iterating Over Dictionaries:
+```python
+patient_record = {
+    'name': 'John Doe',
+    'age': 45,
+    'blood_type': 'A+',
+    'weight': 75
+}
+
+# Keys only
+for key in patient_record:
+    print(f"Key: {key}")
+
+# Values only
+for value in patient_record.values():
+    print(f"Value: {value}")
+
+# Key-value pairs
+for key, value in patient_record.items():
+    print(f"{key}: {value}")
+```
+
+#### Using enumerate():
+```python
+vitals = [120, 80, 98.6, 72]
+
+for index, value in enumerate(vitals):
+    print(f"Index {index}: {value}")
+
+# With custom start index
+for i, name in enumerate(patient_names, start=1):
+    print(f"{i}. {name}")
+```
+
+#### When to Use for Loops:
+- ✅ Processing items in a collection
+- ✅ Repeating operations a specific number of times
+- ✅ Transforming data item by item
+- ✅ Filtering and searching
+
+### 3. while Loops ✅
+
+#### What is a while Loop?
+A **while loop** repeats code as long as a condition remains `True`. Use it when you don't know in advance how many iterations are needed.
+
+#### Key Concepts:
+- ✅ **Condition-Controlled**: Loop continues while condition is True
+- ✅ **Indefinite Iteration**: Number of iterations may be unknown
+- ✅ **Variable Updates**: Loop variable must change to avoid infinite loops
+- ✅ **Entry Condition**: Condition checked before each iteration
+
+#### Basic while Loop:
+```python
+# Simple counter
+count = 1
+while count <= 5:
+    print(f"Count: {count}")
+    count += 1  # Increment counter
+
+print(f"Final count: {count}")
+```
+
+#### Practical Applications:
+```python
+# Countdown timer
+seconds = 5
+while seconds > 0:
+    print(f"⏰ {seconds} seconds remaining...")
+    seconds -= 1
+print("🚨 Time's up!")
+
+# Retry logic with maximum attempts
+attempt = 1
+max_attempts = 3
+success = False
+
+while attempt <= max_attempts and not success:
+    print(f"Attempt {attempt}/{max_attempts}...")
+    
+    # Try operation
+    if some_operation_succeeds():
+        success = True
+        print("✅ Success!")
+    else:
+        print("❌ Failed, retrying...")
+    
+    attempt += 1
+
+if not success:
+    print("🚫 Max attempts reached")
+```
+
+#### When to Use while Loops:
+- ✅ Waiting for user input or external data
+- ✅ Processing until a target condition is met
+- ✅ Retry logic with maximum attempts
+- ✅ Interactive programs
+
+### 4. Loop Control Statements ✅
+
+#### break Statement - Exit Loop Immediately:
+```python
+# Find first match and stop
+medications = ['Aspirin', 'Metformin', 'Insulin', 'Lisinopril']
+target = 'Insulin'
+
+for index, med in enumerate(medications):
+    if med == target:
+        print(f"Found '{target}' at index {index}!")
+        break  # Exit loop immediately
+
+# Search in while loop
+patients = ["Patient_001", "Patient_002", "Patient_003", "Patient_004"]
+target_patient = "Patient_003"
+index = 0
+
+while index < len(patients):
+    if patients[index] == target_patient:
+        print(f"🎯 Target found!")
+        break
+    index += 1
+```
+
+#### continue Statement - Skip to Next Iteration:
+```python
+# Skip invalid data
+raw_temperatures = [98.6, 99.1, -999, 101.5, 97.8, -999, 100.2]
+valid_temps = []
+
+for temp in raw_temperatures:
+    if temp < 0:
+        print(f"⚠️  Skipping invalid: {temp}")
+        continue  # Skip this iteration
+    
+    valid_temps.append(temp)
+    print(f"✅ Processed: {temp}°F")
+
+# Skip weekends
+days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+weekend = ['Sat', 'Sun']
+
+for day in days:
+    if day in weekend:
+        print(f"🏖️  {day}: Weekend (skipping)")
+        continue
+    print(f"💼 {day}: Processing work")
+```
+
+#### else Clause - Execute if Loop Completes Normally:
+```python
+# Search with 'not found' message
+search_name = 'Eve'
+patients = ['Alice', 'Bob', 'Carol', 'David']
+
+for patient in patients:
+    if patient == search_name:
+        print(f"✅ Found {search_name}!")
+        break
+else:
+    # Runs ONLY if loop completed without break
+    print(f"❌ {search_name} not found")
+
+# Prime number check
+def check_prime(n):
+    if n < 2:
+        return False
+    
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return f"{n} = {i} × {n//i} (not prime)"
+    else:
+        return f"{n} is prime"
+```
+
+### 5. Avoiding Infinite Loops ✅
+
+#### Common Causes:
+- ❌ **Forgetting to update** the loop variable
+- ❌ **Wrong comparison operator** (using `>` instead of `<`)
+- ❌ **Logic errors** in condition calculation
+- ❌ **External dependencies** that never change
+
+#### Prevention Strategies:
+```python
+# ✅ Always update loop variables
+counter = 0
+max_iterations = 10
+
+while counter < max_iterations:
+    print(f"Iteration {counter}")
+    counter += 1  # CRITICAL: Update the variable!
+
+# ✅ Use maximum iterations as safety limit
+def safe_process_with_timeout(data_list, max_iterations=1000):
+    results = []
+    iteration = 0
+    
+    while iteration < len(data_list) and iteration < max_iterations:
+        item = data_list[iteration]
+        results.append(process_item(item))
+        iteration += 1
+    
+    if iteration >= max_iterations:
+        print(f"⚠️  Safety timeout after {max_iterations} iterations")
+    
+    return results
+
+# ✅ Prefer for loops when iteration count is known
+for i in range(10):  # Always terminates safely
+    print(i)
+
+# ⚠️ while loop needs careful handling
+count = 0
+while count < 10:    # Risk if count not updated
+    print(count)
+    count += 1       # Don't forget this!
+```
+
+#### Common Mistakes & Solutions:
+
+**MISTAKE 1: Forgetting to update loop variable**
+```python
+# ❌ WRONG:
+count = 0
+while count < 5:
+    print(count)  # Infinite! count never changes
+
+# ✅ CORRECT:
+count = 0
+while count < 5:
+    print(count)
+    count += 1  # Update the loop variable!
+```
+
+**MISTAKE 2: Wrong comparison operator**
+```python
+# ❌ WRONG:
+count = 10
+while count > 0:
+    count += 1    # Infinite! count grows forever
+
+# ✅ CORRECT:
+count = 10
+while count > 0:
+    print(count)
+    count -= 1    # Decrement to reach 0
+```
+
+**MISTAKE 3: Infinite waiting**
+```python
+# ❌ WRONG:
+while some_condition():
+    result = calculate()  # result never affects condition
+
+# ✅ CORRECT:
+max_checks = 100
+checks_done = 0
+data_ready = False
+
+while not data_ready and checks_done < max_checks:
+    checks_done += 1
+    data_ready = check_if_data_ready()
+    
+    if checks_done >= max_checks:
+        print("⚠️  Timeout waiting for data")
+        break
+```
+
+### 6. Practical Data Processing ✅
+
+#### Data Validation Pipeline:
+```python
+raw_patient_data = [
+    {'id': 1, 'name': 'Alice', 'age': 34, 'weight': 65},
+    {'id': 2, 'name': 'Bob', 'age': -5, 'weight': 70},  # Invalid age
+    {'id': 3, 'name': 'Carol', 'age': 45, 'weight': 0},  # Invalid weight
+]
+
+valid_patients = []
+invalid_records = []
+
+for patient in raw_patient_data:
+    errors = []
+    
+    # Validation checks
+    if not patient['name']:
+        errors.append('Missing name')
+    
+    if patient['age'] < 0 or patient['age'] > 120:
+        errors.append(f"Invalid age: {patient['age']}")
+    
+    if patient['weight'] <= 0:
+        errors.append(f"Invalid weight: {patient['weight']}")
+    
+    # Process or reject
+    if not errors:
+        valid_patients.append(patient)
+        print(f"✅ Patient {patient['id']}: Valid")
+    else:
+        invalid_records.append({'id': patient['id'], 'errors': errors})
+        print(f"❌ Patient {patient['id']}: {', '.join(errors)}")
+
+print(f"Summary: {len(valid_patients)}/{len(raw_patient_data)} valid")
+```
+
+#### Nested Loops for Multi-Dimensional Data:
+```python
+# Weekly schedule processing
+days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+time_slots = ['9:00', '10:00', '11:00', '14:00', '15:00']
+
+# Schedule matrix (1 = appointment, 0 = available)
+schedule = [
+    [1, 1, 0, 1, 0],  # Mon
+    [0, 1, 1, 0, 1],  # Tue
+    [1, 0, 1, 1, 0],  # Wed
+    [0, 0, 1, 1, 1],  # Thu
+    [1, 1, 0, 0, 1]   # Fri
+]
+
+print("Available appointment slots:")
+for day_index, day in enumerate(days):
+    available_slots = []
+    
+    for slot_index, slot in enumerate(time_slots):
+        if schedule[day_index][slot_index] == 0:
+            available_slots.append(slot)
+    
+    if available_slots:
+        print(f"  {day}: {', '.join(available_slots)}")
+```
+
+#### List Comprehensions vs Loops:
+```python
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Traditional for loop
+squares_loop = []
+for n in numbers:
+    squares_loop.append(n ** 2)
+
+# List comprehension (cleaner and faster)
+squares_comp = [n ** 2 for n in numbers]
+
+# List comprehension with condition
+even_squares = [n ** 2 for n in numbers if n % 2 == 0]
+
+# Dictionary comprehension
+patient_scores = [85, 92, 78, 95, 88]
+patient_dict = {f'Patient_{i+1}': score for i, score in enumerate(patient_scores)}
+```
+
+### 7. Best Practices ✅
+
+#### ✅ Do's:
+1. **Use for loops** when iterating over known sequences
+2. **Use while loops** when iteration count is unknown
+3. **Always update** loop variables in while loops
+4. **Use break** when you've found what you're looking for
+5. **Use continue** to skip invalid data cleanly
+6. **Add safety limits** to prevent infinite loops
+7. **Use enumerate()** when you need both index and value
+8. **Prefer list comprehensions** for simple transformations
+
+#### ❌ Don'ts:
+1. **Don't modify lists** while iterating over them
+2. **Don't create deeply nested loops** (max 2-3 levels)
+3. **Don't forget to update** while loop variables
+4. **Don't use while loops** when for loops are clearer
+5. **Don't ignore edge cases** that could cause infinite loops
+
+### 8. Quick Reference Guide ✅
+
+#### Basic Loop Structures:
+```python
+# for loop with list
+for item in my_list:
+    process(item)
+
+# for loop with range
+for i in range(10):
+    print(i)
+
+# while loop
+while condition:
+    do_something()
+    update_condition()
+
+# Loop with break
+for item in items:
+    if found_what_i_want:
+        break
+
+# Loop with continue
+for item in items:
+    if item_is_invalid:
+        continue
+    process(item)
+```
+
+#### Common Patterns:
+```python
+# Accumulating results
+total = 0
+for num in numbers:
+    total += num
+
+# Filtering items
+valid_items = []
+for item in all_items:
+    if is_valid(item):
+        valid_items.append(item)
+
+# Searching
+found = False
+for item in items:
+    if item == target:
+        found = True
+        break
+
+# Safe while loop with limit
+attempt = 0
+max_attempts = 100
+while condition and attempt < max_attempts:
+    attempt += 1
+    process()
+```
+
+### 9. Loops Mastery Achieved ✅
+
+#### ✅ Skills Demonstrated:
+- [x] **for Loops**: Iterating over sequences, ranges, and collections
+- [x] **while Loops**: Condition-based repetition with proper termination
+- [x] **Loop Control**: Using break and continue effectively
+- [x] **Infinite Loop Prevention**: Safe loop patterns and safety limits
+- [x] **Data Processing**: Real-world patient data validation and processing
+- [x] **Nested Loops**: Multi-dimensional data processing
+- [x] **Best Practices**: List comprehensions and performance considerations
+
+#### 🚀 Ready for Data Science:
+You can now:
+- Process collections of data efficiently
+- Automate repetitive data tasks
+- Validate and clean datasets iteratively
+- Build scalable data processing pipelines
+- Handle data processing safely without infinite loops
+- Choose the right loop type for each task
+
+**Python Loops Mastery Status**: ✅ COMPLETE AND READY FOR DATA SCIENCE WORK
+
+### Quick Reference Summary
+
+```bash
+# for loop with collection
+for name in patient_names:
+    print(name)
+
+# for loop with range
+for i in range(5):
+    print(i)
+
+# while loop with counter
+count = 0
+while count < 10:
+    print(count)
+    count += 1
+
+# break to exit early
+for item in items:
+    if item == target:
+        break
+
+# continue to skip
+for item in items:
+    if not valid(item):
+        continue
+    process(item)
+
+# enumerate for index + value
+for i, name in enumerate(names):
+    print(f"{i}: {name}")
+```
+
+**You now have complete mastery of Python loops! 🎉**
+
+---
