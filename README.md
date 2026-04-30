@@ -1729,3 +1729,485 @@ patient['gender'] = 'M'
 **You now have complete mastery of Python collections! 🎉**
 
 ---
+
+## Conditional Logic: if, elif, else Statements
+
+### Conditional Logic Mastery ✅ COMPLETED
+**Completion Date**: April 30, 2026  
+**Environment**: datascience conda environment  
+**Python Version**: 3.13.12
+
+### 1. Understanding Conditional Logic ✅
+
+#### Why Conditionals Matter:
+- **🧠 Decision Making**: Code that makes intelligent choices
+- **🔄 Flow Control**: Direct program execution based on data
+- **✅ Data Validation**: Verify and filter data inputs
+- **🎯 Logic Implementation**: Model real-world decision processes
+- **📊 Data Processing**: Handle different data scenarios appropriately
+
+#### Common Beginner Issues:
+- Code that runs but produces incorrect results
+- Conditions that never trigger as expected
+- Incorrect indentation causing logic bugs
+- Overly complex or unreadable condition blocks
+- Confusion between assignment (=) and comparison (==)
+
+### 2. Basic if Statements ✅
+
+#### What is an if Statement?
+An **if statement** executes code only when a specific condition is `True`. This is the foundation of decision-making in Python.
+
+#### Key Concepts:
+- ✅ **Condition**: An expression that evaluates to `True` or `False`
+- ✅ **Indentation**: Python uses indentation (4 spaces) to define code blocks
+- ✅ **Colon**: The `:` character follows the condition
+- ✅ **Boolean Logic**: Conditions use comparison operators
+
+#### Comparison Operators:
+| Operator | Meaning | Example |
+|----------|---------|---------|
+| `==` | Equal to | `age == 18` |
+| `!=` | Not equal to | `status != "inactive"` |
+| `<` | Less than | `score < 70` |
+| `>` | Greater than | `temperature > 100.4` |
+| `<=` | Less than or equal to | `age <= 65` |
+| `>=` | Greater than or equal to | `score >= 90` |
+
+#### Basic if Example:
+```python
+# Checking numeric condition
+patient_temperature = 101.5
+
+if patient_temperature > 100.4:
+    print(f"⚠️  Patient has fever: {patient_temperature}°F")
+    print("🩺 Medical attention required")
+
+print(f"Temperature recorded: {patient_temperature}°F")
+```
+
+#### Data Validation Examples:
+```python
+# Validating patient age
+patient_age = 25
+
+if patient_age < 0:
+    print(f"❌ Invalid age: {patient_age} - Age cannot be negative")
+
+if patient_age > 120:
+    print(f"❌ Invalid age: {patient_age} - Age exceeds human maximum")
+
+if 0 <= patient_age <= 120:
+    print(f"✅ Valid patient age: {patient_age} years")
+
+# Checking list membership
+valid_blood_types = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+patient_blood_type = 'O+'
+
+if patient_blood_type in valid_blood_types:
+    print(f"✅ Valid blood type: {patient_blood_type}")
+```
+
+### 3. if-else Statements ✅
+
+#### What is if-else?
+The **if-else** structure handles both `True` and `False` outcomes of a condition. When the condition is `False`, the `else` block executes instead.
+
+#### Key Concepts:
+- ✅ **Two Paths**: Code handles both true and false conditions
+- ✅ **Mutually Exclusive**: Only one block executes
+- ✅ **Complete Coverage**: No condition goes unhandled
+- ✅ **Clear Logic**: Both outcomes are explicitly defined
+
+#### if-else Example:
+```python
+# Simple pass/fail logic
+test_score = 78
+passing_threshold = 70
+
+print(f"Test score: {test_score}")
+
+if test_score >= passing_threshold:
+    print("✅ Result: PASSED")
+    print("🎉 Congratulations! You passed the exam.")
+else:
+    print("❌ Result: FAILED")
+    print("📚 Please review the material and retake the exam.")
+```
+
+#### Medical Eligibility Example:
+```python
+# Medical eligibility check
+patient_age = 17
+min_age_for_procedure = 18
+
+print(f"Patient age: {patient_age}")
+print(f"Minimum age required: {min_age_for_procedure}")
+
+if patient_age >= min_age_for_procedure:
+    print("✅ Patient is eligible for the procedure")
+    print("📋 Proceed with scheduling")
+else:
+    print("❌ Patient is not eligible")
+    years_to_wait = min_age_for_procedure - patient_age
+    print(f"⏳ Must wait {years_to_wait} more year(s)")
+    print("👨‍👩‍👧‍👦 Guardian consent required")
+```
+
+### 4. if-elif-else Statements ✅
+
+#### What is if-elif-else?
+The **if-elif-else** structure handles multiple conditions in sequence. Python checks each condition in order and executes the first matching block.
+
+#### Key Concepts:
+- ✅ **Sequential Checking**: Conditions evaluated top to bottom
+- ✅ **First Match Wins**: Only first true condition executes
+- ✅ **Mutually Exclusive**: Only one branch executes
+- ✅ **Order Matters**: Arrange conditions from specific to general
+- ✅ **Optional else**: Catch-all for unmatched conditions
+
+#### Blood Pressure Classification Example:
+```python
+systolic_bp = 145
+diastolic_bp = 92
+
+print(f"Blood Pressure: {systolic_bp}/{diastolic_bp} mmHg")
+
+if systolic_bp < 120 and diastolic_bp < 80:
+    bp_category = "Normal"
+    advice = "Maintain healthy lifestyle"
+elif 120 <= systolic_bp <= 129 and diastolic_bp < 80:
+    bp_category = "Elevated"
+    advice = "Monitor regularly, lifestyle changes recommended"
+elif 130 <= systolic_bp <= 139 or 80 <= diastolic_bp <= 89:
+    bp_category = "Stage 1 Hypertension"
+    advice = "Consult healthcare provider"
+elif systolic_bp >= 140 or diastolic_bp >= 90:
+    bp_category = "Stage 2 Hypertension"
+    advice = "Medical treatment required"
+else:
+    bp_category = "Unknown"
+    advice = "Please verify readings"
+
+print(f"Classification: {bp_category}")
+print(f"Recommendation: {advice}")
+```
+
+#### Grading System Example:
+```python
+# Grade classification
+score = 85
+
+if score >= 90:
+    grade = 'A'
+    performance = "Excellent"
+elif score >= 80:
+    grade = 'B'
+    performance = "Good"
+elif score >= 70:
+    grade = 'C'
+    performance = "Satisfactory"
+elif score >= 60:
+    grade = 'D'
+    performance = "Needs Improvement"
+else:
+    grade = 'F'
+    performance = "Unsatisfactory"
+
+print(f"Score: {score}, Grade: {grade}, Performance: {performance}")
+```
+
+### 5. Logical Operators ✅
+
+#### What are Logical Operators?
+**Logical operators** allow you to combine multiple conditions into complex expressions.
+
+#### Key Operators:
+
+| Operator | Meaning | Example | Result |
+|----------|---------|---------|--------|
+| `and` | Both conditions True | `True and True` | ✅ True |
+| `or` | At least one True | `True or False` | ✅ True |
+| `not` | Inverts condition | `not True` | ❌ False |
+
+#### AND Operator (All must be True):
+```python
+# All conditions must be true
+patient_age = 35
+has_symptoms = True
+tested_positive = True
+
+if patient_age >= 18 and has_symptoms and tested_positive:
+    print("✅ Patient qualifies for treatment protocol A")
+    print("🩺 Begin immediate treatment")
+else:
+    print("❌ Patient does not meet all criteria")
+```
+
+#### OR Operator (At least one must be True):
+```python
+# Emergency criteria check
+chest_pain = True
+difficulty_breathing = False
+severe_bleeding = False
+loss_of_consciousness = False
+
+if chest_pain or difficulty_breathing or severe_bleeding or loss_of_consciousness:
+    print("🚨 EMERGENCY CONDITION DETECTED")
+    print("➡️  Immediate medical attention required")
+    print("📞 Call emergency services")
+else:
+    print("✅ No emergency conditions detected")
+    print("🩺 Proceed with standard assessment")
+```
+
+#### NOT Operator (Inverts the condition):
+```python
+# Data validation with NOT
+patient_consent = False
+insurance_verified = True
+
+if not patient_consent:
+    print("⚠️  Cannot proceed without patient consent")
+    print("📝 Obtain signed consent form")
+
+if not insurance_verified:
+    print("⚠️  Insurance not verified")
+    print("💳 Payment arrangement needed")
+
+# Combined with other operators
+if not patient_consent or not insurance_verified:
+    print("⏸️  Procedure on hold - resolve issues above")
+else:
+    print("▶️  Ready to proceed with procedure")
+```
+
+#### Truth Tables:
+
+**AND Operator:**
+| Condition 1 | Condition 2 | Result |
+|-------------|-------------|---------|
+| True | True | ✅ True |
+| True | False | ❌ False |
+| False | True | ❌ False |
+| False | False | ❌ False |
+
+**OR Operator:**
+| Condition 1 | Condition 2 | Result |
+|-------------|-------------|---------|
+| True | True | ✅ True |
+| True | False | ✅ True |
+| False | True | ✅ True |
+| False | False | ❌ False |
+
+### 6. Nested Conditionals ✅
+
+#### What are Nested Conditionals?
+**Nested conditionals** are if statements inside other if statements. They allow for complex, multi-level decision making.
+
+#### Best Practices:
+- ✅ **Limit Nesting**: Avoid going deeper than 2-3 levels
+- ✅ **Clear Logic**: Each level should have a clear purpose
+- ✅ **Comment**: Explain complex nested logic
+- ✅ **Consider elif**: Sometimes elif is cleaner than nesting
+
+#### Triage Decision Tree Example:
+```python
+# Triage logic with nesting
+conscious = True
+breathing = True
+severe_pain = True
+bleeding = False
+
+# Level 1: Life-threatening conditions
+if not breathing or not conscious:
+    priority = "CRITICAL"
+    wait_time = "Immediate"
+    
+    if not breathing:
+        action = "Initiate resuscitation protocol"
+    else:
+        action = "Neurological assessment, protect airway"
+
+# Level 2: Serious but not immediately life-threatening
+elif severe_pain or bleeding:
+    priority = "HIGH"
+    wait_time = "< 15 minutes"
+    
+    if severe_pain and bleeding:
+        action = "Pain management + Hemorrhage control"
+    elif severe_pain:
+        action = "Immediate pain assessment and relief"
+    else:
+        action = "Wound assessment and treatment"
+
+# Level 3: Standard care
+else:
+    priority = "STANDARD"
+    wait_time = "30-60 minutes"
+    action = "Routine assessment and treatment"
+
+print(f"Priority: {priority}")
+print(f"Wait time: {wait_time}")
+print(f"Action: {action}")
+```
+
+### 7. Best Practices and Common Pitfalls ✅
+
+#### ✅ Best Practices:
+1. **Use clear, descriptive conditions** - Make logic easy to understand
+2. **Keep nesting shallow** - Max 2-3 levels deep
+3. **Order conditions logically** - Most specific first
+4. **Use parentheses** for complex conditions
+5. **Test edge cases** thoroughly
+6. **Comment complex logic**
+7. **Use 4-space indentation** consistently
+
+#### ❌ Common Pitfalls:
+1. **Assignment vs Comparison**: Using `=` instead of `==`
+   ```python
+   # WRONG
+   if value = 5:  # SyntaxError!
+   
+   # CORRECT
+   if value == 5:
+   ```
+
+2. **Indentation Errors**: Python relies on proper indentation
+   ```python
+   # WRONG
+   if score > 70:
+   print("Pass")  # IndentationError!
+   
+   # CORRECT
+   if score > 70:
+       print("Pass")
+   ```
+
+3. **Missing else**: Not handling all possible cases
+   ```python
+   # BAD - no handling for negative ages
+   if age >= 18:
+       print("Adult")
+   
+   # GOOD - handles all cases
+   if age >= 18:
+       print("Adult")
+   elif age >= 0:
+       print("Minor")
+   else:
+       print("Invalid age")
+   ```
+
+4. **Too Deep Nesting**: Code becomes unreadable
+   ```python
+   # BAD - deeply nested
+   if condition1:
+       if condition2:
+           if condition3:
+               do_something()
+   
+   # GOOD - flattened with logical operators
+   if condition1 and condition2 and condition3:
+       do_something()
+   ```
+
+### 8. Quick Reference Guide ✅
+
+#### Basic Structure:
+```python
+# Single condition
+if condition:
+    # Code when condition is True
+
+# Two outcomes
+if condition:
+    # Code when True
+else:
+    # Code when False
+
+# Multiple conditions
+if condition1:
+    # Code when condition1 is True
+elif condition2:
+    # Code when condition2 is True
+else:
+    # Code when no conditions match
+```
+
+#### Common Patterns:
+```python
+# Range checking
+if 18 <= age <= 65:
+    print("Working age")
+
+# List membership
+if value in valid_options:
+    print("Valid choice")
+
+# Multiple criteria
+if age >= 18 and has_license and not suspended:
+    print("Can drive")
+
+# Alternative conditions
+if emergency or urgent or life_threatening:
+    print("Fast track")
+```
+
+### 9. Conditional Logic Mastery Achieved ✅
+
+#### ✅ Skills Demonstrated:
+- [x] **Basic if Statements**: Simple conditional execution
+- [x] **if-else Structure**: Handling both true and false outcomes
+- [x] **if-elif-else Structure**: Managing multiple conditions
+- [x] **Logical Operators**: Combining conditions with and, or, not
+- [x] **Nested Conditionals**: Multi-level decision making
+- [x] **Data Validation**: Practical application with edge cases
+- [x] **Best Practices**: Proper indentation, clear logic, edge case handling
+
+#### 🚀 Ready for Data Science:
+You can now:
+- Write clear and correct conditional statements
+- Control program flow based on data values
+- Handle multiple conditions safely
+- Validate data with complex logic
+- Build intelligent decision-making into your code
+- Avoid common conditional logic pitfalls
+
+**Conditional Logic Status**: ✅ COMPLETE AND READY FOR DATA SCIENCE WORK
+
+### Quick Reference Summary
+
+```bash
+# Basic if
+if temperature > 100.4:
+    print("Fever detected")
+
+# if-else
+if age >= 18:
+    print("Adult")
+else:
+    print("Minor")
+
+# if-elif-else
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+else:
+    grade = "C"
+
+# Logical operators
+if age >= 18 and has_consent:
+    print("Eligible")
+
+if emergency or urgent:
+    print("Fast track")
+
+if not verified:
+    print("Needs verification")
+```
+
+**You now have complete mastery of conditional logic in Python! 🎉**
+
+---
