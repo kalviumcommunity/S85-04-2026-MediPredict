@@ -3818,3 +3818,842 @@ You can now:
 **You now have complete mastery of passing data into functions and returning results! 🎉**
 
 ---
+
+## Code Structure: Organizing Python for Readability and Reuse
+
+### Code Structure Mastery ✅ COMPLETED
+**Completion Date**: April 30, 2026  
+**Environment**: datascience conda environment  
+**Python Version**: 3.13.12
+
+### 1. Why Code Structure Matters ✅
+
+#### The Problem with Unstructured Code
+
+As programs grow, **unstructured code** becomes a nightmare:
+- ❌ Difficult to understand the flow
+- ❌ Hard to find specific logic
+- ❌ Repeated code scattered everywhere
+- ❌ Impossible to test individual parts
+- ❌ Changes break things unexpectedly
+- ❌ New team members struggle to contribute
+
+#### Benefits of Well-Structured Code
+
+**Well-structured code** solves these problems:
+- ✅ Clear, predictable flow (reads like a story)
+- ✅ Easy to locate specific logic
+- ✅ Reusable functions eliminate duplication
+- ✅ Individual parts can be tested
+- ✅ Changes are localized and safe
+- ✅ Team members can contribute quickly
+
+#### Key Principles
+1. **Organization**: Group related code together
+2. **Separation**: Keep setup, logic, and execution distinct
+3. **Reusability**: Extract repeated logic into functions
+4. **Readability**: Code should be self-explanatory
+5. **Scalability**: Structure supports growth
+
+### 2. Organizing Code into Logical Sections ✅
+
+#### Standard Python File Structure
+
+A well-structured Python file follows this order:
+
+1. **File Docstring** - What this file does
+2. **Imports** - External dependencies
+3. **Constants** - Configuration values
+4. **Data/Variables** - Global data (use sparingly)
+5. **Helper Functions** - Internal utilities
+6. **Core Functions** - Main business logic
+7. **Main Function** - Entry point for execution
+8. **Execution Block** - if __name__ == '__main__'
+
+#### Section Template:
+```python
+#!/usr/bin/env python3
+"""
+Module Name and Purpose
+
+Brief description of what this module does.
+Author: Your Name
+Date: 2024-04-30
+"""
+
+# =============================================================================
+# SECTION 1: IMPORTS
+# =============================================================================
+
+# Standard library imports
+from datetime import datetime
+from typing import Dict, List
+
+# Third-party imports
+# import pandas as pd
+
+# =============================================================================
+# SECTION 2: CONSTANTS
+# =============================================================================
+
+MAX_PATIENTS = 100
+DEFAULT_TIMEOUT = 30
+
+# =============================================================================
+# SECTION 3: HELPER FUNCTIONS
+# =============================================================================
+
+def helper_function():
+    """Do something helpful."""
+    pass
+
+# =============================================================================
+# SECTION 4: CORE FUNCTIONS
+# =============================================================================
+
+def main_function():
+    """Main business logic."""
+    pass
+
+# =============================================================================
+# SECTION 5: EXECUTION
+# =============================================================================
+
+def main():
+    """Main entry point."""
+    pass
+
+if __name__ == '__main__':
+    main()
+```
+
+#### Section Separation Techniques:
+- **Blank lines**: Separate logical groups (2 lines between sections)
+- **Comments**: Section headers explain what's coming
+- **Docstrings**: Document each function's purpose
+- **Visual separators**: Comment blocks for major sections
+
+### 3. Using Functions for Reuse (DRY Principle) ✅
+
+#### The DRY Principle: Don't Repeat Yourself
+
+**Duplicated code** is problematic because:
+- Bugs must be fixed in multiple places
+- Changes require updates everywhere
+- Code bloat makes files hard to navigate
+- Testing requires multiple test cases
+
+**Functions solve duplication** by:
+- Encapsulating logic in one place
+- Allowing reuse with different inputs
+- Making changes in one location
+- Enabling focused testing
+
+#### When to Extract a Function:
+1. Same logic appears 2+ times
+2. Logic is complex and needs explanation
+3. Logic might change in the future
+4. Logic can be tested independently
+5. Logic represents a distinct operation
+
+#### DRY Example:
+```python
+# ❌ BEFORE: Duplicated Code
+# Processing patient 1
+patient1 = {'name': 'Alice', 'bp': '120/80', 'weight': 65, 'height': 1.70}
+systolic1, diastolic1 = map(int, patient1['bp'].split('/'))
+if systolic1 > 140 or diastolic1 > 90:
+    status1 = 'High'
+else:
+    status1 = 'Normal'
+bmi1 = patient1['weight'] / (patient1['height'] ** 2)
+print(f"{patient1['name']}: BP {status1}, BMI {bmi1:.1f}")
+
+# Processing patient 2 - SAME LOGIC COPIED!
+patient2 = {'name': 'Bob', 'bp': '140/95', 'weight': 85, 'height': 1.80}
+systolic2, diastolic2 = map(int, patient2['bp'].split('/'))
+# ... 8 more lines of identical logic ...
+
+# ✅ AFTER: DRY with Functions
+def parse_blood_pressure(bp_string):
+    """Parse blood pressure string."""
+    return map(int, bp_string.split('/'))
+
+def classify_blood_pressure(systolic, diastolic):
+    """Classify BP as Normal or High."""
+    if systolic > 140 or diastolic > 90:
+        return 'High'
+    return 'Normal'
+
+def calculate_bmi(weight, height):
+    """Calculate BMI."""
+    return weight / (height ** 2)
+
+def assess_patient(patient):
+    """Assess patient health metrics."""
+    systolic, diastolic = parse_blood_pressure(patient['bp'])
+    bp_status = classify_blood_pressure(systolic, diastolic)
+    bmi = calculate_bmi(patient['weight'], patient['height'])
+    return {'name': patient['name'], 'bp': bp_status, 'bmi': bmi}
+
+# Now processing any number of patients is simple:
+patients = [
+    {'name': 'Alice', 'bp': '120/80', 'weight': 65, 'height': 1.70},
+    {'name': 'Bob', 'bp': '140/95', 'weight': 85, 'height': 1.80},
+    {'name': 'Carol', 'bp': '135/85', 'weight': 70, 'height': 1.65},
+]
+
+for patient in patients:
+    result = assess_patient(patient)
+    print(f"{result['name']}: BP {result['bp']}, BMI {result['bmi']:.1f}")
+```
+
+### 4. Separating Logic from Execution ✅
+
+#### The `if __name__ == '__main__'` Pattern
+
+This Python idiom separates:
+- **Library code** (functions, classes) - can be imported
+- **Executable code** (scripts, main logic) - runs when file is executed
+
+#### Why This Matters:
+
+1. **Reusability**: Import functions without running the script
+2. **Testing**: Test functions independently of execution logic
+3. **Organization**: Clear separation between 'what it does' and 'how it runs'
+4. **Collaboration**: Others can import your utilities safely
+
+#### Structure:
+```python
+# All imports, constants, functions defined here...
+
+def main():
+    """Main execution logic."""
+    # This only runs when the file is executed directly
+    data = load_data()
+    results = process_data(data)
+    generate_report(results)
+
+if __name__ == '__main__':
+    main()
+```
+
+#### Best Practice: Organized Main Function
+```python
+def load_patient_data(source='sample'):
+    """Load patient data from source."""
+    # Implementation...
+    pass
+
+def validate_patient_data(patients):
+    """Validate patient records."""
+    # Implementation...
+    pass
+
+def analyze_patients(patients):
+    """Analyze patient health metrics."""
+    # Implementation...
+    pass
+
+def generate_report(analysis_results):
+    """Generate summary report."""
+    # Implementation...
+    pass
+
+def main():
+    """
+    Main execution function.
+    
+    Orchestrates the data pipeline:
+    1. Load data
+    2. Validate records
+    3. Analyze health metrics
+    4. Generate report
+    """
+    print("Starting patient health analysis...")
+    
+    # Step 1: Load
+    raw_data = load_patient_data()
+    print(f"Loaded {len(raw_data)} patient records")
+    
+    # Step 2: Validate
+    valid_patients, invalid_count = validate_patient_data(raw_data)
+    print(f"Valid: {len(valid_patients)}, Invalid: {invalid_count}")
+    
+    # Step 3: Analyze
+    analysis_results = analyze_patients(valid_patients)
+    
+    # Step 4: Report
+    report = generate_report(analysis_results)
+    print(report)
+    
+    print("\nAnalysis complete!")
+
+if __name__ == '__main__':
+    main()
+```
+
+### 5. Readable, Maintainable Code Structure ✅
+
+#### Key Principles for Maintainable Code:
+
+1. **Single Responsibility**: Each function does one thing
+2. **Clear Naming**: Functions and variables explain themselves
+3. **Consistent Spacing**: Visual separation between sections
+4. **Logical Flow**: Code reads top-to-bottom like a story
+5. **Error Handling**: Graceful handling of edge cases
+6. **Documentation**: Docstrings explain purpose and usage
+
+#### Structure Checklist:
+- ✅ Imports at the top
+- ✅ Constants grouped together
+- ✅ Helper functions before core functions
+- ✅ Main function at the bottom
+- ✅ Execution block guarded by `if __name__ == '__main__'`
+- ✅ No deeply nested code (max 3-4 levels)
+- ✅ Reasonable file length (<500 lines ideally)
+
+#### Before/After Example:
+```python
+# ❌ BEFORE: Unstructured and Hard to Maintain
+p1={'name':'Alice','age':34,'bp':'120/80'}
+p2={'name':'Bob','age':45,'bp':'140/95'}
+def check(p):
+    s,d=map(int,p['bp'].split('/'))
+    if s>140 or d>90:
+        return 'high'
+    return 'normal'
+print('Patient Report')
+print('==============')
+print(p1['name'],check(p1))
+print(p2['name'],check(p2))
+
+# ✅ AFTER: Well-Structured and Maintainable
+#!/usr/bin/env python3
+"""
+Patient Health Assessment System
+
+Processes patient health records and generates risk assessments.
+"""
+
+# =============================================================================
+# CONSTANTS
+# =============================================================================
+
+BLOOD_PRESSURE_THRESHOLDS = {
+    'normal_systolic': 120,
+    'normal_diastolic': 80,
+    'high_systolic': 140,
+    'high_diastolic': 90
+}
+
+SAMPLE_PATIENTS = [
+    {'name': 'Alice', 'age': 34, 'bp': '120/80'},
+    {'name': 'Bob', 'age': 45, 'bp': '140/95'},
+    {'name': 'Carol', 'age': 28, 'bp': '135/85'},
+]
+
+# =============================================================================
+# HELPER FUNCTIONS
+# =============================================================================
+
+def parse_blood_pressure(bp_string):
+    """Parse blood pressure string into numeric components."""
+    try:
+        systolic, diastolic = map(int, bp_string.split('/'))
+        return systolic, diastolic
+    except (ValueError, AttributeError):
+        return None, None
+
+def is_valid_bp(systolic, diastolic):
+    """Check if BP values are within physiologically possible range."""
+    return (50 <= systolic <= 300) and (30 <= diastolic <= 200)
+
+# =============================================================================
+# CORE FUNCTIONS
+# =============================================================================
+
+def classify_blood_pressure(systolic, diastolic):
+    """
+    Classify blood pressure level based on standard thresholds.
+    
+    Returns: 'normal', 'elevated', or 'high'
+    """
+    thresholds = BLOOD_PRESSURE_THRESHOLDS
+    
+    if systolic >= thresholds['high_systolic'] or diastolic >= thresholds['high_diastolic']:
+        return 'high'
+    elif systolic >= thresholds['normal_systolic'] or diastolic >= thresholds['normal_diastolic']:
+        return 'elevated'
+    else:
+        return 'normal'
+
+def assess_patient_risk(patient):
+    """
+    Assess health risk for a single patient.
+    
+    Returns dict with assessment results or None if invalid data.
+    """
+    systolic, diastolic = parse_blood_pressure(patient['bp'])
+    
+    if not is_valid_bp(systolic, diastolic):
+        return None
+    
+    bp_classification = classify_blood_pressure(systolic, diastolic)
+    
+    return {
+        'name': patient['name'],
+        'age': patient['age'],
+        'blood_pressure': f"{systolic}/{diastolic}",
+        'classification': bp_classification,
+        'recommendation': get_recommendation(bp_classification)
+    }
+
+def get_recommendation(classification):
+    """Get health recommendation based on BP classification."""
+    recommendations = {
+        'normal': 'Continue routine monitoring',
+        'elevated': 'Schedule follow-up in 3 months',
+        'high': 'Schedule appointment within 1 week'
+    }
+    return recommendations.get(classification, 'Consult provider')
+
+def generate_patient_report(assessments):
+    """Generate formatted report from patient assessments."""
+    report_lines = [
+        "\nPATIENT HEALTH ASSESSMENT",
+        "=" * 40
+    ]
+    
+    for assessment in assessments:
+        if assessment is None:
+            report_lines.append("[Invalid patient data]")
+            continue
+        
+        report_lines.extend([
+            f"\n{assessment['name']} (Age: {assessment['age']})",
+            f"  Blood Pressure: {assessment['blood_pressure']}",
+            f"  Classification: {assessment['classification'].title()}",
+            f"  Recommendation: {assessment['recommendation']}",
+        ])
+    
+    report_lines.extend([
+        "\n" + "=" * 40,
+        "END OF REPORT"
+    ])
+    
+    return '\n'.join(report_lines)
+
+# =============================================================================
+# EXECUTION
+# =============================================================================
+
+def main():
+    """Main execution function."""
+    print("Loading patient data...")
+    patients = SAMPLE_PATIENTS
+    
+    print("Assessing patients...")
+    assessments = [assess_patient_risk(p) for p in patients]
+    
+    print("Generating report...")
+    report = generate_patient_report(assessments)
+    
+    print(report)
+
+if __name__ == '__main__':
+    main()
+```
+
+### 6. Quick Reference Summary
+
+```bash
+# Standard Python file structure:
+#!/usr/bin/env python3
+"""Module docstring."""
+
+# 1. IMPORTS
+import os
+from datetime import datetime
+
+# 2. CONSTANTS
+MAX_VALUE = 100
+
+# 3. FUNCTIONS (organized by purpose)
+def helper():
+    """Helper function."""
+    pass
+
+def main():
+    """Main function."""
+    pass
+
+# 4. EXECUTION
+if __name__ == '__main__':
+    main()
+```
+
+### 7. Code Structure Mastery Achieved ✅
+
+#### ✅ Skills Demonstrated:
+- [x] **Logical Organization**: Grouped related code into clear sections
+- [x] **Function Reuse**: Applied DRY principle to eliminate duplication
+- [x] **Separation of Concerns**: Logic separated from execution
+- [x] **Main Function Pattern**: Used `if __name__ == '__main__'` correctly
+- [x] **Readability**: Code flows logically from top to bottom
+- [x] **Maintainability**: Structure supports future changes
+- [x] **Before/After**: Transformed messy code into clean structure
+- [x] **Best Practices**: Followed all Python structure conventions
+
+#### 🚀 Ready for Professional Development:
+You can now:
+- Structure Python files for maximum readability
+- Organize code into logical, reusable sections
+- Apply the DRY principle effectively
+- Separate library code from executable scripts
+- Write code that teams can understand and extend
+- Create maintainable, professional-grade code
+
+**Code Structure Mastery Status**: ✅ COMPLETE AND READY FOR DATA SCIENCE WORK
+
+**You now have complete mastery of structuring Python code for readability and reuse! 🎉**
+
+---
+
+## NumPy Arrays: Creating Arrays from Python Lists
+
+### NumPy Arrays Mastery ✅ COMPLETED
+**Completion Date**: April 30, 2026  
+**Environment**: datascience conda environment  
+**Python Version**: 3.13.12  
+**Library**: NumPy (numpy)
+
+### 1. Why NumPy Arrays? ✅
+
+#### Python Lists vs NumPy Arrays
+
+**Python Lists** are great for general-purpose storage but have limitations for numerical computing:
+- ❌ Slow for mathematical operations
+- ❌ Memory inefficient for large data
+- ❌ No vectorized operations (must use loops)
+- ❌ Can store mixed types (overhead)
+
+**NumPy Arrays** are designed for numerical computing:
+- ✅ **Fast**: Optimized C implementations (10-100x faster)
+- ✅ **Memory efficient**: Contiguous memory storage
+- ✅ **Vectorized operations**: No loops needed
+- ✅ **Homogeneous**: All elements same type
+- ✅ **Broadcasting**: Smart element-wise operations
+
+#### NumPy is the Foundation:
+- **Pandas** is built on NumPy
+- **Matplotlib** uses NumPy arrays
+- **Scikit-learn** expects NumPy arrays
+- **TensorFlow/PyTorch** use similar array concepts
+
+### 2. Importing NumPy ✅
+
+```python
+import numpy as np
+
+# Verify import
+test_array = np.array([1, 2, 3])
+print(f"NumPy version: {np.__version__}")
+print(f"Test array: {test_array}")
+print(f"Type: {type(test_array)}")  # <class 'numpy.ndarray'>
+```
+
+### 3. Creating NumPy Arrays from Lists ✅
+
+#### 1D Arrays (Vectors)
+```python
+import numpy as np
+
+# From a simple list of integers
+int_list = [1, 2, 3, 4, 5]
+int_array = np.array(int_list)
+print(f"Int array: {int_array}")  # [1 2 3 4 5]
+print(f"dtype: {int_array.dtype}")  # int64
+
+# From a list of floats
+float_list = [1.1, 2.2, 3.3, 4.4, 5.5]
+float_array = np.array(float_list)
+print(f"Float array: {float_array}")  # [1.1 2.2 3.3 4.4 5.5]
+print(f"dtype: {float_array.dtype}")  # float64
+
+# From mixed types (converts to common type)
+mixed_list = [1, 2.5, 3, 4.5, 5]
+mixed_array = np.array(mixed_list)
+print(f"Mixed array: {mixed_array}")  # [1.  2.5 3.  4.5 5. ]
+print(f"dtype: {mixed_array.dtype}")  # float64 (all converted!)
+```
+
+#### 2D Arrays (Matrices)
+```python
+# From nested lists
+matrix_list = [[1, 2, 3],
+               [4, 5, 6],
+               [7, 8, 9]]
+matrix_array = np.array(matrix_list)
+
+print(f"Matrix:\n{matrix_array}")
+# [[1 2 3]
+#  [4 5 6]
+#  [7 8 9]]
+
+print(f"Shape: {matrix_array.shape}")  # (3, 3) - 3 rows, 3 columns
+
+# Healthcare example: Patient data
+patient_data = [
+    [70, 1.75],    # Patient 1: weight(kg), height(m)
+    [65, 1.70],    # Patient 2: weight(kg), height(m)
+    [80, 1.80],    # Patient 3: weight(kg), height(m)
+    [55, 1.65]     # Patient 4: weight(kg), height(m)
+]
+patient_array = np.array(patient_data)
+print(f"Patient data shape: {patient_array.shape}")  # (4, 2) - 4 patients, 2 measurements
+```
+
+#### 3D Arrays (Tensors)
+```python
+# 3D array: [patient][reading_time][vital_type]
+medical_data = [
+    [  # Patient 1
+        [72, 120],   # Time 1: HR, BP
+        [75, 125],   # Time 2: HR, BP
+        [78, 130]    # Time 3: HR, BP
+    ],
+    [  # Patient 2
+        [68, 118],   # Time 1: HR, BP
+        [70, 122],   # Time 2: HR, BP
+        [72, 125]    # Time 3: HR, BP
+    ],
+    [  # Patient 3
+        [80, 135],   # Time 1: HR, BP
+        [82, 140],   # Time 2: HR, BP
+        [85, 145]    # Time 3: HR, BP
+    ]
+]
+
+medical_array = np.array(medical_data)
+print(f"Shape: {medical_array.shape}")  # (3, 3, 2) - 3 patients, 3 times, 2 vitals
+print(f"Dimensions: {medical_array.ndim}")  # 3
+print(f"Total elements: {medical_array.size}")  # 18
+```
+
+### 4. Inspecting Array Properties ✅
+
+#### Key Array Attributes
+
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| `shape` | Dimensions of the array | `(3, 4)` means 3 rows, 4 columns |
+| `dtype` | Data type of elements | `int64`, `float64`, etc. |
+| `ndim` | Number of dimensions | `1` for 1D, `2` for 2D, etc. |
+| `size` | Total number of elements | `12` for a 3×4 array |
+| `itemsize` | Bytes per element | `8` for int64 |
+
+```python
+# Create arrays to inspect
+array_1d = np.array([1, 2, 3, 4, 5])
+array_2d = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+# 1D Array Properties
+print(f"1D Array: {array_1d}")
+print(f"  shape: {array_1d.shape}")       # (5,) - 5 elements in 1 dimension
+print(f"  dtype: {array_1d.dtype}")       # int64
+print(f"  ndim: {array_1d.ndim}")         # 1
+print(f"  size: {array_1d.size}")        # 5
+print(f"  itemsize: {array_1d.itemsize}") # 8 bytes
+
+# 2D Array Properties
+print(f"2D Array:\n{array_2d}")
+print(f"  shape: {array_2d.shape}")       # (3, 3) - 3 rows, 3 columns
+print(f"  dtype: {array_2d.dtype}")       # int64
+print(f"  ndim: {array_2d.ndim}")         # 2
+print(f"  size: {array_2d.size}")        # 9
+print(f"  itemsize: {array_2d.itemsize}") # 8 bytes
+```
+
+#### Data Types (dtype)
+
+```python
+# Integer types
+int8_array = np.array([1, 2, 3], dtype=np.int8)
+int64_array = np.array([1, 2, 3], dtype=np.int64)
+
+# Float types
+float32_array = np.array([1.1, 2.2], dtype=np.float32)
+float64_array = np.array([1.1, 2.2], dtype=np.float64)
+
+# Specifying dtype explicitly
+data = [1, 2, 3]
+int_array = np.array(data, dtype=int)
+float_array = np.array(data, dtype=float)
+```
+
+### 5. Basic Array Operations ✅
+
+#### Lists vs Arrays: Operations Comparison
+
+**Python Lists:**
+```python
+# Addition (concatenation)
+[1, 2, 3] + [4, 5, 6]  # [1, 2, 3, 4, 5, 6]
+
+# Multiplication (repetition)
+[1, 2, 3] * 3  # [1, 2, 3, 1, 2, 3, 1, 2, 3]
+
+# Must use loops for element-wise math
+[x + 10 for x in [1, 2, 3]]  # [11, 12, 13]
+```
+
+**NumPy Arrays:**
+```python
+import numpy as np
+a = np.array([1, 2, 3, 4, 5])
+b = np.array([10, 20, 30, 40, 50])
+
+# Addition (element-wise)
+a + b  # array([11, 22, 33, 44, 55])
+
+# Multiplication (element-wise)
+a * b  # array([10, 40, 90, 160, 250])
+
+# Scalar operations (broadcasting)
+a + 10  # array([11, 12, 13, 14, 15])
+a * 2   # array([2, 4, 6, 8, 10])
+a ** 2  # array([1, 4, 9, 16, 25])
+```
+
+#### Common Array Functions
+
+```python
+data = np.array([23, 45, 67, 89, 34, 56, 78, 90, 12, 54])
+
+# Statistical functions
+np.sum(data)        # Sum of all elements
+np.mean(data)       # Average
+np.std(data)        # Standard deviation
+np.min(data)        # Minimum value
+np.max(data)        # Maximum value
+
+# Array methods (called on array object)
+data.sum()
+data.mean()
+data.min()
+data.max()
+
+# Sorting
+np.sort(data)
+
+# Finding indices
+np.argmax(data)     # Index of maximum
+np.argmin(data)     # Index of minimum
+np.where(data > 50) # Indices where condition is True
+
+# 2D operations
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+matrix.sum()        # Sum of all elements: 45
+matrix.sum(axis=0)  # Sum along columns: [12, 15, 18]
+matrix.sum(axis=1)  # Sum along rows: [6, 15, 24]
+```
+
+### 6. Healthcare Data Example ✅
+
+```python
+import numpy as np
+
+# Patient data: [heart_rate, systolic_bp, diastolic_bp, temperature]
+patient_vitals = [
+    [72, 120, 80, 98.6],
+    [75, 125, 82, 99.1],
+    [68, 118, 78, 97.8],
+    [80, 135, 88, 98.9],
+    [70, 122, 81, 98.4]
+]
+
+# Create array
+vitals_array = np.array(patient_vitals)
+print(f"Shape: {vitals_array.shape}")  # (5, 4) - 5 patients, 4 measurements
+
+# Extract columns (measurements)
+heart_rates = vitals_array[:, 0]    # All rows, column 0
+systolic_bp = vitals_array[:, 1]    # All rows, column 1
+temperatures = vitals_array[:, 3]   # All rows, column 3
+
+# Calculate statistics
+print(f"Average heart rate: {heart_rates.mean():.1f} bpm")
+print(f"Average systolic BP: {systolic_bp.mean():.1f} mmHg")
+print(f"Average temperature: {temperatures.mean():.1f} °F")
+
+# Find patients with elevated BP
+elevated_mask = systolic_bp > 130
+elevated_count = np.sum(elevated_mask)
+print(f"Patients with elevated BP: {elevated_count}")
+
+# BMI calculation
+weights = np.array([70, 65, 80, 75, 68])
+heights = np.array([1.75, 1.70, 1.80, 1.78, 1.72])
+bmis = weights / (heights ** 2)
+print(f"Average BMI: {bmis.mean():.1f}")
+```
+
+### 7. Quick Reference Summary
+
+```bash
+# Import
+import numpy as np
+
+# Creating arrays
+array_1d = np.array([1, 2, 3, 4, 5])
+array_2d = np.array([[1, 2, 3], [4, 5, 6]])
+
+# Properties
+array.shape   # Dimensions: (3, 4)
+array.dtype   # Data type: int64, float64
+array.ndim    # Number of dimensions
+array.size    # Total elements
+
+# Operations
+array + 10        # Add to each element
+array1 + array2   # Element-wise addition
+array * 2         # Multiply each element
+array ** 2        # Square each element
+
+# Functions
+np.sum(array)     # Sum all elements
+np.mean(array)    # Average
+np.std(array)     # Standard deviation
+np.max(array)     # Maximum
+np.min(array)     # Minimum
+np.sort(array)    # Sort
+```
+
+### 8. NumPy Arrays Mastery Achieved ✅
+
+#### ✅ Skills Demonstrated:
+- [x] **Importing NumPy**: `import numpy as np`
+- [x] **Creating 1D Arrays**: From simple lists
+- [x] **Creating 2D Arrays**: From nested lists (matrices)
+- [x] **Creating 3D Arrays**: Multi-dimensional data
+- [x] **Array Properties**: shape, dtype, ndim, size
+- [x] **Element-wise Operations**: +, -, *, / on entire arrays
+- [x] **Built-in Functions**: sum, mean, std, min, max
+- [x] **Lists vs Arrays**: Understanding the differences
+- [x] **Healthcare Example**: Real-world data processing
+
+#### 🚀 Ready for Data Science:
+You can now:
+- Create NumPy arrays from Python lists
+- Understand array structure and data types
+- Perform efficient numerical operations
+- Process healthcare data efficiently
+- Use arrays as foundation for Pandas and ML
+- Write vectorized code (no loops needed!)
+
+**NumPy Arrays Mastery Status**: ✅ COMPLETE AND READY FOR DATA SCIENCE WORK
+
+**You now have complete mastery of creating NumPy arrays from Python lists! 🎉**
+
+---
