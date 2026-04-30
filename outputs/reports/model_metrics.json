@@ -1,0 +1,41 @@
+{
+  "beds": {
+    "LinearRegression": {
+      "mae": 13.953,
+      "rmse": 16.759,
+      "r2": -0.161
+    },
+    "RandomForestRegressor": {
+      "mae": 14.772,
+      "rmse": 17.189,
+      "r2": -0.222
+    },
+    "selected_model": "LinearRegression"
+  },
+  "oxygen": {
+    "LinearRegression": {
+      "mae": 7.488,
+      "rmse": 8.711,
+      "r2": -0.265
+    },
+    "RandomForestRegressor": {
+      "mae": 7.273,
+      "rmse": 8.369,
+      "r2": -0.168
+    },
+    "selected_model": "RandomForestRegressor"
+  },
+  "icu": {
+    "LinearRegression": {
+      "mae": 2.308,
+      "rmse": 2.968,
+      "r2": -0.556
+    },
+    "RandomForestRegressor": {
+      "mae": 2.278,
+      "rmse": 2.703,
+      "r2": -0.291
+    },
+    "selected_model": "RandomForestRegressor"
+  }
+}
